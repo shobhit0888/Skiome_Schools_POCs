@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/global/global.dart';
-import 'package:skiome_schools/main_Screens/home_screen.dart';
+import 'package:skiome_schools/centresScreens/home_screen.dart';
 
 import '../widgets/custom_text_field.dart';
 import '../widgets/loading_dialog.dart';

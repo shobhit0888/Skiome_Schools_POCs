@@ -10,7 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skiome_schools/global/global.dart';
-import 'package:skiome_schools/main_Screens/home_screen.dart';
+import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/widgets/loading_dialog.dart';
 
 import '../widgets/custom_text_field.dart';

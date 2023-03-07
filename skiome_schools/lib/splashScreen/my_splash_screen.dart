@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skiome_schools/authScreens/auth_screen.dart';
 
-import '../main_Screens/home_screen.dart';
+import '../centresScreens/home_screen.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
