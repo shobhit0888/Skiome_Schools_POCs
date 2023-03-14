@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:skiome_schools/models/centres.dart';
 import 'package:skiome_schools/widgets/text_delegate_header_widget.dart';
-import 'package:velocity_x/velocity_x.dart';
+// import 'package:velocity_x/velocity_x.dart';
 
 import '../models/categories.dart';
 import '../widgets/my_drawer.dart';

@@ -3,6 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:skiome_schools/assistantMethods/cart_object_counter.dart';
+import 'package:skiome_schools/cartScreens/cart_screen.dart';
 
 class AppBarCartBadge extends StatefulWidget with PreferredSizeWidget {
   PreferredSizeWidget? preferredSizeWidget;
@@ -52,7 +56,23 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
         Stack(
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  int objectInCart =
+                      Provider.of<CartObjectCounter>(context, listen: false)
+                          .count;
+                  if (objectInCart == 0) {
+                    Fluttertoast.showToast(
+                        msg:
+                            "Cart is Empty. Please First add some items to cart");
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (c) => CartScreen(
+                                  centreUID: widget.centreUID,
+                                )));
+                  }
+                },
                 icon: Icon(
                   Icons.shopping_cart,
                   color: Colors.white,
@@ -69,7 +89,15 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
                   top: 2,
                   right: 5,
                   child: Center(
-                    child: Text("0"),
+                    child: Consumer<CartObjectCounter>(
+                        builder: (context, counter, c) {
+                      return Text(
+                        counter.count.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      );
+                    }),
                   ),
                 )
               ],

@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../assistantMethods/cart_Methods.dart';
+
 SharedPreferences? sharedPreferences;
 final objectsImagesList = [
   "slider/0.jpg",
@@ -17,3 +19,9 @@ final objectsImagesList = [
   "slider/12.jpg",
   "slider/13.jpg",
 ];
+
+CartMethods cartMethods = CartMethods();
+
+double countStarsRating = 0.0;
+
+String titleStarsRating = "";

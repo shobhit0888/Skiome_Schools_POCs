@@ -6,7 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:skiome_schools/centresScreens/centres_ui_design_widget.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/models/centres.dart';
-import 'package:velocity_x/velocity_x.dart';
+// import 'package:velocity_x/velocity_x.dart';
 // import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../widgets/my_drawer.dart';
 
@@ -18,6 +18,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    cartMethods.clearCart(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
             tileMode: TileMode.clamp,
           )),
         ),
-        title: "iShop".text.bold.xl3.make(),
+        title: Text(
+          "Skiome ",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: CustomScrollView(

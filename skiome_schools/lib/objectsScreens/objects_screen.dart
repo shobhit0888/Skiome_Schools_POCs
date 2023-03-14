@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:velocity_x/velocity_x.dart';
+// import 'package:velocity_x/velocity_x.dart';
 
 import '../models/categories.dart';
 import '../models/objects.dart';
@@ -40,9 +40,12 @@ class _ItemsScreenState extends State<ObjectsScreen> {
             tileMode: TileMode.clamp,
           )),
         ),
-        title: "Skiome Centres".text.bold.xl3.make(),
+        title: Text(
+          "Skiome Centre",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-       automaticallyImplyLeading: true,
+        automaticallyImplyLeading: true,
       ),
       body: CustomScrollView(
         slivers: [
@@ -66,6 +69,7 @@ class _ItemsScreenState extends State<ObjectsScreen> {
             builder: (context, AsyncSnapshot dataSnapshot) {
               if (dataSnapshot.hasData) //if categoies exist
               {
+              
                 //show categories
                 return SliverStaggeredGrid.countBuilder(
                   crossAxisCount: 1,
@@ -77,7 +81,6 @@ class _ItemsScreenState extends State<ObjectsScreen> {
                     );
                     return ObjectsUiDesignWidget(
                       model: objectsModel,
-                     
                     );
                   },
                   itemCount: dataSnapshot.data.docs.length,

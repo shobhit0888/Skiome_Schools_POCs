@@ -1,7 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skiome_schools/assistantMethods/address_changer.dart';
+import 'package:skiome_schools/assistantMethods/cart_object_counter.dart';
+import 'package:skiome_schools/assistantMethods/total_amount.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/splashScreen/my_splash_screen.dart';
 
@@ -20,12 +24,21 @@ class Skiome_Schools extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Users App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.purple,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (c) => CartObjectCounter(),
         ),
-        home: MySplashScreen());
+        ChangeNotifierProvider(create: (c) => TotalAmount()),
+         ChangeNotifierProvider(create: (c) => AddressChanger()),
+      ],
+      child: MaterialApp(
+          title: 'Users App',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.purple,
+          ),
+          home: MySplashScreen()),
+    );
   }
 }

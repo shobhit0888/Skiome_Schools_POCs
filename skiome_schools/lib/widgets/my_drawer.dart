@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:skiome_schools/history/history_screen.dart';
+import 'package:skiome_schools/notYetReceivedParcels/not_yet_received_parcels_screen.dart';
+import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/global/global.dart';
+import 'package:skiome_schools/ordersScreens/orders_screen.dart';
 import 'package:skiome_schools/splashScreen/my_splash_screen.dart';
-import 'package:velocity_x/velocity_x.dart';
+// import 'package:velocity_x/velocity_x.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -64,8 +68,14 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.home,
                     color: Colors.grey,
                   ),
-                  title: "Home".text.color(Colors.grey).make(),
-                  onTap: () {},
+                  title: Text(
+                    "Home",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => HomeScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,
@@ -78,8 +88,14 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.reorder,
                     color: Colors.grey,
                   ),
-                  title: "My Orders".text.color(Colors.grey).make(),
-                  onTap: () {},
+                  title: Text(
+                    "My Orders",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => OrdersScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,
@@ -92,9 +108,16 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.picture_in_picture_rounded,
                     color: Colors.grey,
                   ),
-                  title:
-                      "Not yet received orders".text.color(Colors.grey).make(),
-                  onTap: () {},
+                  title: Text(
+                    "Not yet received orders",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (c) => NotYetReceivedParcelsScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,
@@ -107,8 +130,14 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.access_time,
                     color: Colors.grey,
                   ),
-                  title: "History".text.color(Colors.grey).make(),
-                  onTap: () {},
+                  title: Text(
+                    "History",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => HistoryScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,
@@ -121,7 +150,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.search,
                     color: Colors.grey,
                   ),
-                  title: "Search".text.color(Colors.grey).make(),
+                  title: Text(
+                    "Search",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   onTap: () {},
                 ),
                 const Divider(
@@ -135,7 +167,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     Icons.exit_to_app,
                     color: Colors.grey,
                   ),
-                  title: "Logout".text.color(Colors.grey).make(),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   onTap: () {
                     FirebaseAuth.instance.signOut();
                     Navigator.push(context,

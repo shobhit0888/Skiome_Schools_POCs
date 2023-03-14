@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:skiome_schools/assistantMethods/cart_Methods.dart';
 import 'package:skiome_schools/widgets/appbar_cart_badge.dart';
 
+import '../global/global.dart';
 import '../models/objects.dart';
 
 class ObjectsDetailsScreen extends StatefulWidget {
@@ -21,6 +23,7 @@ class ObjectsDetailsScreen extends StatefulWidget {
 
 class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
   int counterLimit = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +32,22 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
         centreUID: widget.model!.centreUID.toString(),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (() {}),
+        onPressed: () {
+          int objectCounter = counterLimit;
+          List<String> objectsIDsList =
+              cartMethods.separateObjectIDsFromUserCartList();
+          //1. check if then exist already in cart
+          if (objectsIDsList.contains(widget.model!.objectId)) {
+            Fluttertoast.showToast(msg: "Object is already in Cart");
+          } else {
+            //2. add object in cart
+            cartMethods.addObjectToCart(
+              widget.model!.objectId.toString(),
+              objectCounter,
+              context,
+            );
+          }
+        },
         label: const Text("Add to cart"),
         icon: Icon(
           Icons.delete_sweep_outlined,

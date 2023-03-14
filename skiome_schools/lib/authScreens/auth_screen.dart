@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skiome_schools/authScreens/registration_tab_page.dart';
-import 'package:velocity_x/velocity_x.dart';
+// import 'package:velocity_x/velocity_x.dart';
 
 import 'login_tab_page.dart';
 
@@ -32,7 +32,10 @@ class _AuthScreenState extends State<AuthScreen> {
                 tileMode: TileMode.clamp,
               )),
             ),
-            title: "iShop".text.bold.xl3.make(),
+            title: Text(
+          "Skiome",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
             centerTitle: true,
             bottom: const TabBar(
                 indicatorColor: Colors.white,
