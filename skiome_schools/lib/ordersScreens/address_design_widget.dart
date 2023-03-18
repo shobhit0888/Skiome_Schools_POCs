@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +11,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/models/address.dart';
 import 'package:skiome_schools/ratingScreens/rate_centre_screen.dart';
 import 'package:skiome_schools/splashScreen/my_splash_screen.dart';
+
+import '../global/global.dart';
+import 'package:http/http.dart' as http;
 
 class AddressDesign extends StatelessWidget {
   Address? model;
@@ -23,6 +28,52 @@ class AddressDesign extends StatelessWidget {
     this.centreId,
     this.orderByUser,
   });
+  sendNotificationToCentre(centreId, orderId) async {
+    String centreDeviceToken = "";
+    await FirebaseFirestore.instance
+        .collection("Centres")
+        .doc(centreId)
+        .get()
+        .then((snapshot) {
+      if (snapshot.data()!["centreDeviceToken"] != null) {
+        centreDeviceToken = snapshot.data()!["centreDeviceToken"].toString();
+      }
+    });
+    notificationFormat(
+      centreDeviceToken,
+      orderId,
+      sharedPreferences!.getString("name"),
+    );
+  }
+
+  notificationFormat(centreDeviceToken, orderId, schoolName) {
+    Map<String, String> headerNotification = {
+      'Content-Type': 'application/json',
+      'Authorization': fcmServerToken,
+    };
+    Map bodyNotification = {
+      'body':
+          "Dear Centre Incharge, Parcel(# $orderId) has been received Successfully by school $schoolName. \n Please Check Now",
+      'title': "Parcel Received",
+    };
+    Map dataMap = {
+      'click_action': "FLUTTER_NOTIFICATION_CLICK",
+      'id': "1",
+      "status": "done",
+      "schoolOrderId": orderId,
+    };
+    Map officialNotificationFormat = {
+      'notification': bodyNotification,
+      'data': dataMap,
+      'priority': 'high',
+      'to': centreDeviceToken,
+    };
+    http.post(
+      Uri.parse("https://fcm.googleapis.com/fcm/send"),
+      headers: headerNotification,
+      body: jsonEncode(officialNotificationFormat),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +158,7 @@ class AddressDesign extends StatelessWidget {
                   "status": "ended",
                 });
                 //send notification to seller
+                sendNotificationToCentre(centreId, orderId);
                 Fluttertoast.showToast(msg: "Confirmed Successfully");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (c) => MySplashScreen()));
@@ -147,7 +199,7 @@ class AddressDesign extends StatelessWidget {
                   orderSatus == "ended"
                       ? "Do you want to Rate this Centre?"
                       : orderSatus == "shifted"
-                          ? "Parcel Received, \n Clickn  to Confirm"
+                          ? "Parcel Received, \n Click  to Confirm"
                           : orderSatus == "normal"
                               ? "Go Back"
                               : "",

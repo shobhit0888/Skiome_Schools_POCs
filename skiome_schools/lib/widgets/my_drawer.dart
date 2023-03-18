@@ -5,6 +5,7 @@ import 'package:skiome_schools/notYetReceivedParcels/not_yet_received_parcels_sc
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/ordersScreens/orders_screen.dart';
+import 'package:skiome_schools/searchScreen/search_screen.dart';
 import 'package:skiome_schools/splashScreen/my_splash_screen.dart';
 // import 'package:velocity_x/velocity_x.dart';
 
@@ -154,7 +155,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     "Search",
                     style: TextStyle(color: Colors.grey),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => SearchScreen()));
+                  },
                 ),
                 const Divider(
                   height: 10,

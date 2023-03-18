@@ -25,3 +25,6 @@ CartMethods cartMethods = CartMethods();
 double countStarsRating = 0.0;
 
 String titleStarsRating = "";
+
+String fcmServerToken =
+    "key=AAAAcEuH4jc:APA91bHVphDoS2n6iReNBCNXwwQ6U_aT6YvWoWJ_GsBFhNz9vjVh7pFlUdLH1EA0QIJ6ExtybBohkGiVNihj2wnU_2O10MAjkIiDayjsH1y4xorrXDG9Vz-WCYR0sCmNZsxhDluzJSGu";

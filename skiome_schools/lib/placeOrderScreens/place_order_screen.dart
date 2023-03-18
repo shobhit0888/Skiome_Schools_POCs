@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/global/global.dart';
+import 'package:http/http.dart' as http;
 
 class PlaceOrderScreen extends StatefulWidget {
   String? addressId;
@@ -50,7 +53,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         "status": "normal",
       }).whenComplete(() {
         cartMethods.clearCart(context);
-        //send push notifications
+        //send push notifications to centre about new order which placed by user
+        sendNotificationToCentre(widget.centreUID.toString(), orderId);
 
         Fluttertoast.showToast(
             msg: "Congratulations, Order has been placed successfully.");
@@ -75,6 +79,53 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         .collection("Orders")
         .doc(orderId)
         .set(orderDetailsMap);
+  }
+
+  sendNotificationToCentre(centreUID, orderId) async {
+    String centreDeviceToken = "";
+    await FirebaseFirestore.instance
+        .collection("Centres")
+        .doc(centreUID)
+        .get()
+        .then((snapshot) {
+      if (snapshot.data()!["centreDeviceToken"] != null) {
+        centreDeviceToken = snapshot.data()!["centreDeviceToken"].toString();
+      }
+    });
+    notificationFormat(
+      centreDeviceToken,
+      orderId,
+      sharedPreferences!.getString("name"),
+    );
+  }
+
+  notificationFormat(centreDeviceToken, orderId, schoolName) {
+    Map<String, String> headerNotification = {
+      'Content-Type': 'application/json',
+      'Authorization': fcmServerToken,
+    };
+    Map bodyNotification = {
+      'body':
+          "Dear Centre Incharge, New Order(# $orderId) has been placed Successfully from user $schoolName. \n Please Check Now",
+      'title': "New Order",
+    };
+    Map dataMap = {
+      'click_action': "FLUTTER_NOTIFICATION_CLICK",
+      'id': "1",
+      "status": "done",
+      "schoolOrderId": orderId,
+    };
+    Map officialNotificationFormat = {
+      'notification': bodyNotification,
+      'data': dataMap,
+      'priority': 'high',
+      'to': centreDeviceToken,
+    };
+    http.post(
+      Uri.parse("https://fcm.googleapis.com/fcm/send"),
+      headers: headerNotification,
+      body: jsonEncode(officialNotificationFormat),
+    );
   }
 
   @override

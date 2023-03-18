@@ -1,13 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:skiome_schools/centresScreens/centres_ui_design_widget.dart';
+import 'package:skiome_schools/functions/functions.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/models/centres.dart';
+import 'package:skiome_schools/pushNotifications/push_notifications_system.dart';
 // import 'package:velocity_x/velocity_x.dart';
 // import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../splashScreen/my_splash_screen.dart';
 import '../widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,10 +23,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  restrictBlockedSchoolsFromUsingSchoolsApp() async {
+    await FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(sharedPreferences!.getString("uid"))
+        .get()
+        .then((snapshot) {
+      if (snapshot.data()!["status"] != "approved") {
+        showReusableSnackBar(context, "you are blocked by admin.");
+        showReusableSnackBar(context, "contact admin:  admin2@ishop.com");
+        FirebaseAuth.instance.signOut();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => MySplashScreen()));
+      } else {
+        cartMethods.clearCart(context);
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    cartMethods.clearCart(context);
+    PushNotificationsSystem pushNotificationsSystem = PushNotificationsSystem();
+    pushNotificationsSystem.whenNotificationReceived(context);
+    pushNotificationsSystem.generateDeviceRecognitionToken();
+    restrictBlockedSchoolsFromUsingSchoolsApp();
   }
 
   @override
