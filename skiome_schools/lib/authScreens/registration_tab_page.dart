@@ -28,6 +28,7 @@ class _RegistrationTabPageState extends State<RegistrationTabPage> {
   TextEditingController passwordTextEditingController = TextEditingController();
   TextEditingController confirmPasswordTextEditingController =
       TextEditingController();
+      TextEditingController centreCodeTextEditingController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String dowmloadUrlImage = "";
   XFile? imgXFile;
@@ -52,7 +53,7 @@ class _RegistrationTabPageState extends State<RegistrationTabPage> {
           showDialog(
               context: context,
               builder: (c) {
-                return  LoadingDialogWidget(
+                return LoadingDialogWidget(
                   meassage: "Registering your Account",
                 );
               });
@@ -127,98 +128,142 @@ class _RegistrationTabPageState extends State<RegistrationTabPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 12,
-            ),
-            //get-capture image
-            GestureDetector(
-              onTap: () {
-                getImageFromGallery();
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: imgXFile == null
-                    ? null
-                    : FileImage(File(
-                        imgXFile!.path,
-                      )),
-                radius: MediaQuery.of(context).size.width * 0.20,
-                child: imgXFile == null
-                    ? Icon(
-                        Icons.add_photo_alternate,
-                        color: Colors.grey,
-                        size: MediaQuery.of(context).size.width * 0.20,
-                      )
-                    : null,
-              ),
-            ),
-            //inputs field
-
-            Form(
-                child: Column(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.pinkAccent,
+              Colors.purpleAccent,
+            ],
+            begin: FractionalOffset(0.0, 0.0),
+            end: FractionalOffset(1.0, 0.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp,
+          )),
+        ),
+        title: Text(
+          "New School Registration",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.pinkAccent,
+              Colors.purpleAccent,
+            ],
+            begin: FractionalOffset(0.0, 0.0),
+            end: FractionalOffset(1.0, 0.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp,
+          )),
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //name
-                CustomTextField(
-                  textEditingController: nameTextEditingController,
-                  iconData: Icons.person,
-                  hintText: "Name",
-                  isObscure: false,
-                  enabled: true,
+                const SizedBox(
+                  height: 40,
                 ),
-                //email
-                CustomTextField(
-                  textEditingController: emailTextEditingController,
-                  iconData: Icons.email,
-                  hintText: "Email",
-                  isObscure: false,
-                  enabled: true,
-                ),
-                //password
-                CustomTextField(
-                  textEditingController: passwordTextEditingController,
-                  iconData: Icons.lock,
-                  hintText: "Password",
-                  isObscure: false,
-                  enabled: true,
-                ),
-                //confirm password
-                CustomTextField(
-                  textEditingController: confirmPasswordTextEditingController,
-                  iconData: Icons.lock,
-                  hintText: "Confirm Password",
-                  isObscure: true,
-                  enabled: true,
+                //get-capture image
+                GestureDetector(
+                  onTap: () {
+                    getImageFromGallery();
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: imgXFile == null
+                        ? null
+                        : FileImage(File(
+                            imgXFile!.path,
+                          )),
+                    radius: MediaQuery.of(context).size.width * 0.20,
+                    child: imgXFile == null
+                        ? Icon(
+                            Icons.add_photo_alternate,
+                            color: Colors.grey,
+                            size: MediaQuery.of(context).size.width * 0.20,
+                          )
+                        : null,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-              ],
-            )),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.pinkAccent,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 12)),
-                onPressed: (() {
-                  formvalidation();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => HomeScreen())));
-                }),
-                child: const Text(
-                  "SignUp",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                //inputs field
+
+                Form(
+                    child: Column(
+                  children: [
+                    //name
+                    CustomTextField(
+                      textEditingController: nameTextEditingController,
+                      iconData: Icons.person,
+                      hintText: "Name",
+                      isObscure: false,
+                      enabled: true,
+                    ),
+                    //email
+                    CustomTextField(
+                      textEditingController: emailTextEditingController,
+                      iconData: Icons.email,
+                      hintText: "Email",
+                      isObscure: false,
+                      enabled: true,
+                    ),
+                    //password
+                    CustomTextField(
+                      textEditingController: passwordTextEditingController,
+                      iconData: Icons.lock,
+                      hintText: "Password",
+                      isObscure: false,
+                      enabled: true,
+                    ),
+                    //confirm password
+                    CustomTextField(
+                      textEditingController:
+                          confirmPasswordTextEditingController,
+                      iconData: Icons.lock,
+                      hintText: "Confirm Password",
+                      isObscure: true,
+                      enabled: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 )),
-            const SizedBox(
-              height: 30,
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.pinkAccent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 12)),
+                    onPressed: (() {
+                      formvalidation();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => HomeScreen())));
+                    }),
+                    child: const Text(
+                      "SignUp",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )),
+                const SizedBox(
+                  height: 120,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

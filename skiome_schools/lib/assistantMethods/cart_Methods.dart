@@ -29,6 +29,33 @@ class CartMethods {
     });
   }
 
+  //add object to Teacher Cart
+  addObjectToTeacherCart(
+      String? objectId, int objectCounter, BuildContext context) {
+    //save to Local storage
+    List<String>? tempList = sharedPreferences!.getStringList("userCart");
+    tempList!.add(
+        objectId.toString() + ":" + objectCounter.toString()); //25522544 : 5
+
+//save to Firebase
+    FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(sharedPreferences!.getString("schoolUID"))
+        .collection("Teachers")
+        .doc(sharedPreferences!.getString("teacherUID"))
+        .update({
+      "userCart": tempList,
+    }).then((value) {
+      Fluttertoast.showToast(msg: "Object added successfully");
+      //save to local storage
+      sharedPreferences!.setStringList("userCart", tempList);
+
+      //update object badge number
+      Provider.of<CartObjectCounter>(context, listen: false)
+          .showCartListObjectsNumber();
+    });
+  }
+
   clearCart(BuildContext context) {
     //clear in the local storage
     sharedPreferences!.setStringList("userCart", ["initalValue"]);
@@ -37,6 +64,26 @@ class CartMethods {
     FirebaseFirestore.instance
         .collection("UsersSchools")
         .doc(sharedPreferences!.getString("uid"))
+        .update({
+      "userCart": emptyCartList,
+    }).then((value) {
+      //updated object badge number
+      Provider.of<CartObjectCounter>(context, listen: false)
+          .showCartListObjectsNumber();
+    });
+  }
+
+//clear teacher cart
+  clearTeacherCart(BuildContext context) {
+    //clear in the local storage
+    sharedPreferences!.setStringList("userCart", ["initalValue"]);
+    List<String>? emptyCartList = sharedPreferences!.getStringList("userCart");
+
+    FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(sharedPreferences!.getString("schoolUID"))
+        .collection("Teachers")
+        .doc(sharedPreferences!.getString("teacherUID"))
         .update({
       "userCart": emptyCartList,
     }).then((value) {

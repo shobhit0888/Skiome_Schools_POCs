@@ -2,39 +2,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:skiome_schools/eventsScreens/events_details._screen.dart';
 
-import '../models/objects.dart';
-import 'objects_details_screen.dart';
+import '../models/events.dart';
 
-class ObjectsUiDesignWidget extends StatefulWidget {
-  Objects? model;
-  int? token;
-  ObjectsUiDesignWidget({
+class EventsUiDesignWidget extends StatefulWidget {
+  Events? model;
+  BuildContext? context;
+  EventsUiDesignWidget({
     this.model,
-    this.token,
+    this.context,
   });
 
   @override
-  State<ObjectsUiDesignWidget> createState() => _ObjectsUiDesignWidgetState();
+  State<EventsUiDesignWidget> createState() => _SchoolsUiDesignWidgetState();
 }
 
-class _ObjectsUiDesignWidgetState extends State<ObjectsUiDesignWidget> {
+class _SchoolsUiDesignWidgetState extends State<EventsUiDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print(widget.model!.eventName.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (c) => ObjectsDetailsScreen(
+                builder: (c) => EventsDetailsScreen(
                       model: widget.model,
-                      token:widget.token
                     )));
       },
       child: Card(
-        color: Colors.black,
         elevation: 10,
-        shadowColor: Colors.grey,
+        shadowColor: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(4),
           child: SizedBox(
@@ -42,19 +41,11 @@ class _ObjectsUiDesignWidgetState extends State<ObjectsUiDesignWidget> {
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    widget.model!.thumbnailUrl.toString(),
-                    height: 220,
-                    fit: BoxFit.cover,
-                  ),
-                ),
                 const SizedBox(
-                  height: 1,
+                  height: 2,
                 ),
                 Text(
-                  widget.model!.objectName.toString(),
+                  widget.model!.eventName.toString(),
                   style: TextStyle(
                     color: Colors.deepPurple,
                     fontWeight: FontWeight.bold,
@@ -63,10 +54,29 @@ class _ObjectsUiDesignWidgetState extends State<ObjectsUiDesignWidget> {
                   ),
                 ),
                 const SizedBox(
-                  height: 1,
+                  height: 2,
+                ),
+                Image.network(
+                  widget.model!.photoUrl.toString(),
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  height: 4,
                 ),
                 Text(
-                  widget.model!.longDescription.toString(),
+                  widget.model!.time.toString(),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    letterSpacing: 3,
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  widget.model!.venue.toString(),
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14,

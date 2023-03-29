@@ -14,7 +14,9 @@ import 'objects_ui_design_widget.dart';
 
 class ObjectsScreen extends StatefulWidget {
   Categories? model;
+  int? token;
   ObjectsScreen({
+    this.token,
     this.model,
   });
   @override
@@ -60,26 +62,28 @@ class _ItemsScreenState extends State<ObjectsScreen> {
           StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("Centres")
-                .doc(widget.model!.centreUID.toString())
+                .doc(widget.model!.centreUID)
                 .collection("ObjectCategories")
                 .doc(widget.model!.categoryId)
                 .collection("Objects")
-                .orderBy("publishDate", descending: true)
+                // .orderBy("publishDate", descending: true)
                 .snapshots(),
             builder: (context, AsyncSnapshot dataSnapshot) {
               if (dataSnapshot.hasData) //if categoies exist
               {
-              
+                print(widget.model!.centreUID);
                 //show categories
                 return SliverStaggeredGrid.countBuilder(
-                  crossAxisCount: 1,
+                  crossAxisCount: 2,
                   staggeredTileBuilder: (c) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     Objects objectsModel = Objects.fromJson(
                       dataSnapshot.data.docs[index].data()
                           as Map<String, dynamic>,
                     );
+                    print("yes");
                     return ObjectsUiDesignWidget(
+                      token:widget.token,
                       model: objectsModel,
                     );
                   },

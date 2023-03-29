@@ -6,18 +6,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/models/schools.dart';
+import 'package:skiome_schools/teachersScreens/home_screen_for_teachers.dart';
 
 import '../widgets/custom_text_field.dart';
 import '../widgets/loading_dialog.dart';
 
-class LoginTabPage extends StatefulWidget {
-  const LoginTabPage({super.key});
+class TeachersLoginTabPage extends StatefulWidget {
+  const TeachersLoginTabPage({super.key});
 
   @override
-  State<LoginTabPage> createState() => _LoginTabPageState();
+  State<TeachersLoginTabPage> createState() => _TeachersLoginTabPageState();
 }
 
-class _LoginTabPageState extends State<LoginTabPage> {
+class _TeachersLoginTabPageState extends State<TeachersLoginTabPage> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -59,33 +60,42 @@ class _LoginTabPageState extends State<LoginTabPage> {
 
   checkUserRecordExist(User currentUser) async {
     await FirebaseFirestore.instance
-        .collection("UsersSchools")
+        .collection("Teachers")
         .doc(currentUser.uid)
         .get()
         .then((record) async {
       if (record.exists) //record exist
       {
         if (record.data()!["status"] == "approved") {
-          await sharedPreferences!.setString("uid", record.data()!["uid"]);
-          await sharedPreferences!.setString("email", record.data()!["email"]);
-          await sharedPreferences!.setString("name", record.data()!["name"]);
+          await sharedPreferences!
+              .setString("teacherUID", record.data()!["teacherUID"]);
+          await sharedPreferences!
+              .setString("teacherEmail", record.data()!["teacherEmail"]);
+          await sharedPreferences!
+              .setString("teacherName", record.data()!["teacherName"]);
+          await sharedPreferences!
+              .setString("schoolUID", record.data()!["schoolUID"]);
           await sharedPreferences!
               .setString("centreUID", record.data()!["centreUID"]);
+          // await sharedPreferences!
+
+          // .setString("photoUrl", record.data()!["photoUrl"]);
+          List<String> userCartList =
+              record.data()!["userCart"].cast<String>();
+
           await sharedPreferences!
-              .setString("photoUrl", record.data()!["photoUrl"]);
-          List<String> userCartList = record.data()!["userCart"].cast<String>();
-          await sharedPreferences!.setStringList("userCart", userCartList);
+              .setStringList("userCart", userCartList);
           //send the user to homeScreen
 
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (c) => HomeScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (c) => HomeScreenForTeachers()));
         } else //status is not approved
         {
           FirebaseAuth.instance.signOut();
           Navigator.pop(context);
           Fluttertoast.showToast(
               msg:
-                  "You have been BLOCED by Admin. \n contact Admin : techlead@skiome.in");
+                  "You have been BLOCKED by Admin. \n contact Admin : techlead@skiome.in");
         }
       } else //record not exist
       {
@@ -118,7 +128,7 @@ class _LoginTabPageState extends State<LoginTabPage> {
                 CustomTextField(
                   textEditingController: emailTextEditingController,
                   iconData: Icons.email,
-                  hintText: "School Email",
+                  hintText: "Teacher Email",
                   isObscure: false,
                   enabled: true,
                 ),

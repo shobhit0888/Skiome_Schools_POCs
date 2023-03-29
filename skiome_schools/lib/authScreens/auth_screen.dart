@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skiome_schools/authScreens/admin_verification.dart';
 import 'package:skiome_schools/authScreens/registration_tab_page.dart';
+import 'package:skiome_schools/authScreens/teacher_verification.dart';
 // import 'package:velocity_x/velocity_x.dart';
 
 import 'login_tab_page.dart';
@@ -33,23 +35,23 @@ class _AuthScreenState extends State<AuthScreen> {
               )),
             ),
             title: Text(
-          "Skiome",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+              "Skiome",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             centerTitle: true,
             bottom: const TabBar(
                 indicatorColor: Colors.white,
                 indicatorWeight: 4,
                 tabs: [
                   Tab(
-                    text: "login",
+                    text: "School Login",
                     icon: Icon(
                       Icons.lock,
                       color: Colors.white,
                     ),
                   ),
                   Tab(
-                    text: "Resistration",
+                    text: "Teacher Login",
                     icon: Icon(
                       Icons.person,
                       color: Colors.white,
@@ -71,7 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
             )),
             child: TabBarView(children: [
               LoginTabPage(),
-              RegistrationTabPage(),
+              TeachersLoginTabPage(),
             ]),
           ),
         ));

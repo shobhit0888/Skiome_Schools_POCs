@@ -12,9 +12,11 @@ import '../splashScreen/my_splash_screen.dart';
 
 class CategoriesUiDesignWidget extends StatefulWidget {
   Categories? model;
+  int? token;
   BuildContext? context;
   CategoriesUiDesignWidget({
     this.model,
+    this.token,
     this.context,
   });
 
@@ -32,6 +34,7 @@ class _CategoriesUiDesignWidgetState extends State<CategoriesUiDesignWidget> {
             context,
             MaterialPageRoute(
                 builder: (c) => ObjectsScreen(
+                  token: widget.token,
                       model: widget.model,
                     )));
       },

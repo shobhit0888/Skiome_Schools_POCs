@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:skiome_schools/assistantMethods/address_changer.dart';
 import 'package:skiome_schools/models/address.dart';
+import 'package:skiome_schools/models/objects.dart';
 import 'package:skiome_schools/placeOrderScreens/place_order_screen.dart';
 
 class AddressDesignWidget extends StatefulWidget {
@@ -14,14 +15,16 @@ class AddressDesignWidget extends StatefulWidget {
   int? value;
   String? addressId;
   double? totalAmount;
-  String? centreUID;
+  // String? centreUID;
+  Objects? model;
   AddressDesignWidget({
     this.addressModel,
     this.index,
     this.value,
     this.addressId,
     this.totalAmount,
-    this.centreUID,
+    // this.centreUID,
+    this.model,
   });
 
   @override
@@ -132,6 +135,7 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
           widget.value == Provider.of<AddressChanger>(context).count
               ? ElevatedButton(
                   onPressed: () {
+                    
                     //send the user to place order screen
                     Navigator.push(
                         context,
@@ -139,7 +143,8 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
                             builder: (c) => PlaceOrderScreen(
                                   addressId: widget.addressId,
                                   totalAmount: widget.totalAmount,
-                                  centreUID: widget.centreUID,
+                                  // centreUID: widget.model!.centreUID,
+                                  model: widget.model,
                                 )));
                   },
                   child: const Text("Proceed"),

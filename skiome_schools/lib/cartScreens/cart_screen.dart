@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:skiome_schools/addressScreens/address_screen.dart';
 import 'package:skiome_schools/assistantMethods/cart_object_counter.dart';
@@ -15,11 +16,16 @@ import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/models/objects.dart';
 import 'package:skiome_schools/splashScreen/my_splash_screen.dart';
 import 'package:skiome_schools/widgets/appbar_cart_badge.dart';
+import 'package:skiome_schools/widgets/loading_dialog.dart';
 
 class CartScreen extends StatefulWidget {
-  String? centreUID;
+  int? token;
+  // String? centreUID;
+  Objects? model;
   CartScreen({
-    this.centreUID,
+    this.token,
+    // this.centreUID,
+    this.model,
   });
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -28,6 +34,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   List<int>? objectQuantityList;
   double totalAmount = 0.0;
+  List<String>? cartList;
+  List<String>? teacherCartList;
   @override
   void initState() {
     // TODO: implement initState
@@ -36,6 +44,43 @@ class _CartScreenState extends State<CartScreen> {
     Provider.of<TotalAmount>(context, listen: false)
         .showTotalAmountOfCartObjects(0);
     objectQuantityList = cartMethods.separateObjectQuantitiesFromUserCartList();
+    getCartList();
+  }
+
+  void getCartList() async {
+    final docc = await FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(sharedPreferences!.getString("schoolUID"))
+        .get();
+    cartList = List<String>.from(docc['userCart']);
+    print(cartList.toString());
+  }
+
+  Future<void> addObjectsToSchoolCart() async {
+    teacherCartList =
+        sharedPreferences!.getStringList("userCart") as List<String>;
+
+    for (int i = 1; i < teacherCartList!.length; i++) {
+      cartList!.add(teacherCartList![i]);
+    }
+    FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(sharedPreferences!.getString("schoolUID"))
+        .update({
+      "userCart": cartList,
+    }).then((value) {
+      print(sharedPreferences!.getString("schoolUID"));
+      print("test");
+      Fluttertoast.showToast(msg: "Object added successfully");
+      cartMethods.clearTeacherCart(context);
+      // sharedPreferences!.setStringList("userCart", ["initialValue"]);
+      // Provider.of<CartObjectCounter>(context, listen: false)
+      //     .showCartListObjectsNumber();
+      print("main hu");
+      print(cartList.toString());
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (c) => MySplashScreen()));
+    });
   }
 
   @override
@@ -51,7 +96,12 @@ class _CartScreenState extends State<CartScreen> {
           ),
           FloatingActionButton.extended(
             onPressed: () {
-              cartMethods.clearCart(context);
+              if (widget.token == 0) {
+                cartMethods.clearCart(context);
+              } else {
+                cartMethods.clearTeacherCart(context);
+              }
+
               Navigator.push(
                   context, MaterialPageRoute(builder: (c) => MySplashScreen()));
             },
@@ -64,13 +114,21 @@ class _CartScreenState extends State<CartScreen> {
           ),
           FloatingActionButton.extended(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (c) => AddressScreen(
-                            centreUID: widget.centreUID.toString(),
-                            totalAmount: totalAmount.toDouble(),
-                          )));
+              // print("......" + widget.model!.centreUID.toString());
+              if (widget.token == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => AddressScreen(
+                              // centreUID: widget.model!.centreUID.toString(),
+                              model: widget.model,
+                              totalAmount: totalAmount.toDouble(),
+                            )));
+              } else {
+                addObjectsToSchoolCart();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => MySplashScreen()));
+              }
             },
             heroTag: "btn2",
             icon: Icon(Icons.navigate_next),
@@ -112,6 +170,8 @@ class _CartScreenState extends State<CartScreen> {
 
           StreamBuilder(
             stream: FirebaseFirestore.instance
+                .collection("ObjectCategories")
+                .doc(widget.model!.categoryId)
                 .collection("Objects")
                 .where("objectId",
                     whereIn: cartMethods.separateObjectIDsFromUserCartList())

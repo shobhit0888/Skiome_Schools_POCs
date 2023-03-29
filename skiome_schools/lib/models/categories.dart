@@ -6,7 +6,8 @@ class Categories {
   String? categoryInfo;
   String? categoryName;
   String? centreUID;
-  Timestamp? publishDate;
+  // Timestamp? publishDate;
+  String? publishDate;
   String? status;
   String? thumbnailUrl;
   Categories({
@@ -23,7 +24,7 @@ class Categories {
     categoryInfo = json["categoryInfo"];
     categoryName = json["categoryName"];
     centreUID = json["centreUID"];
-    publishDate = json["publishDate"];
+    publishDate = json["publishDate"].toString();
     status = json["status"];
     thumbnailUrl = json["thumbnailUrl"];
   }

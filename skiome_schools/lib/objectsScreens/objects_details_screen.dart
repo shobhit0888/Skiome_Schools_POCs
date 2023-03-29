@@ -13,8 +13,10 @@ import '../models/objects.dart';
 
 class ObjectsDetailsScreen extends StatefulWidget {
   Objects? model;
+  int? token;
   ObjectsDetailsScreen({
     this.model,
+    this.token,
   });
 
   @override
@@ -29,11 +31,13 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBarCartBadge(
-        centreUID: widget.model!.centreUID.toString(),
-      ),
+          token: widget.token,
+          // centreUID: widget.model!.categoryId.toString(),
+          model: widget.model),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           int objectCounter = counterLimit;
+          
           List<String> objectsIDsList =
               cartMethods.separateObjectIDsFromUserCartList();
           //1. check if then exist already in cart
@@ -41,11 +45,21 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
             Fluttertoast.showToast(msg: "Object is already in Cart");
           } else {
             //2. add object in cart
-            cartMethods.addObjectToCart(
-              widget.model!.objectId.toString(),
-              objectCounter,
-              context,
-            );
+            if (widget.token ==
+                0) // it is school, add objects to school cart i.e userCart.
+            {
+              cartMethods.addObjectToCart(
+                widget.model!.objectId.toString(),
+                objectCounter,
+                context,
+              );
+            } else {
+              cartMethods.addObjectToTeacherCart(
+                widget.model!.objectId.toString(),
+                objectCounter,
+                context,
+              );
+            }
           }
         },
         label: const Text("Add to cart"),

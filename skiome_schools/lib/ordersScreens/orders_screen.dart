@@ -55,8 +55,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
             return ListView.builder(
               itemBuilder: (context, index) {
+                Orders model = Orders.fromJson(dataSnapshot.data.docs[index]
+                    .data() as Map<String, dynamic>);
+
                 return FutureBuilder(
                   future: FirebaseFirestore.instance
+                      .collection("ObjectCategories")
+                      .doc(model.categoryId)
                       .collection("Objects")
                       .where("objectId",
                           whereIn: cartMethods.separateOrderObjectIDs(

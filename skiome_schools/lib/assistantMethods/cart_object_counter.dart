@@ -15,3 +15,18 @@ class CartObjectCounter extends ChangeNotifier {
     });
   }
 }
+
+// class TeacherCartObjectCounter extends ChangeNotifier {
+//   int TeacherCartListObjectCounter =
+//       sharedPreferences!.getStringList("teacherCart")!.length - 1;
+
+//   int get count => TeacherCartListObjectCounter;
+
+//   Future<void> showTeacherCartListObjectsNumber() async {
+//     TeacherCartListObjectCounter =
+//         sharedPreferences!.getStringList("teacherCart")!.length - 1;
+//     await Future.delayed(const Duration(milliseconds: 100), () {
+//       notifyListeners();
+//     });
+//   }
+// }

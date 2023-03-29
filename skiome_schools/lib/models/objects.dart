@@ -6,19 +6,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Objects {
   String? objectId;
   String? categoryId;
-  String? centreName;
+  // String? centreName;
   String? centreUID;
   String? longDescription;
   String? objectInfo;
   String? objectName;
   String? objectPrice;
-  Timestamp? publishDate;
+  // Timestamp? publishDate;
+  String? publishDate;
   String? status;
   String? thumbnailUrl;
   Objects({
     this.objectId,
     this.categoryId,
-    this.centreName,
+    // this.centreName,
     this.centreUID,
     this.longDescription,
     this.objectInfo,
@@ -31,13 +32,13 @@ class Objects {
   Objects.fromJson(Map<String, dynamic> json) {
     objectId = json["objectId"];
     categoryId = json["categoryId"];
-    centreName = json["categoryName"];
+    // centreName = json["categoryName"];
     centreUID = json["centreUID"];
     longDescription = json["longDescription"];
     objectInfo = json["objectInfo"];
     objectName = json["objectName"];
     objectPrice = json["objectPrice"];
-    publishDate = json["publishDate"];
+    publishDate = json["publishDate"].toString();
     status = json["status"];
     thumbnailUrl = json["thumbnailUrl"];
   }

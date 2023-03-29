@@ -7,13 +7,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:skiome_schools/assistantMethods/cart_object_counter.dart';
 import 'package:skiome_schools/cartScreens/cart_screen.dart';
+import 'package:skiome_schools/models/objects.dart';
 
 class AppBarCartBadge extends StatefulWidget with PreferredSizeWidget {
   PreferredSizeWidget? preferredSizeWidget;
-  String? centreUID;
+  int? token;
+  // String? centreUID;
+  Objects? model;
   AppBarCartBadge({
     this.preferredSizeWidget,
-    this.centreUID,
+    this.token,
+    // this.centreUID,
+    this.model,
   });
 
   @override
@@ -69,7 +74,8 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
                         context,
                         MaterialPageRoute(
                             builder: (c) => CartScreen(
-                                  centreUID: widget.centreUID,
+                                  // centreUID: widget.centreUID,
+                                  model: widget.model,
                                 )));
                   }
                 },

@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skiome_schools/authScreens/auth_screen.dart';
+import 'package:skiome_schools/teachersScreens/home_screen_for_teachers.dart';
 
 import '../centresScreens/home_screen.dart';
 
@@ -17,15 +19,32 @@ class _MySplashScreenState extends State<MySplashScreen> {
   @override
   splashScreenTimer() {
     Timer(const Duration(seconds: 2), () {
+      User? currentUser=FirebaseAuth.instance.currentUser;
       //user is already logged in
       if (FirebaseAuth.instance.currentUser != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+        checkUserRecordExist(currentUser!);
       }
       //user is not logged in
       else {
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+      }
+    });
+  }
+
+  checkUserRecordExist(User currentUser) async {
+    await FirebaseFirestore.instance
+        .collection("UsersSchools")
+        .doc(currentUser.uid)
+        .get()
+        .then((record) async {
+      if (record.exists) //record exist
+      {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (c) => const HomeScreenForTeachers()));
       }
     });
   }
@@ -60,7 +79,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
                 child: Image.asset("images/welcome.png"),
               ),
               Text(
-                "iShop Users App",
+                "Skiome",
                 style: TextStyle(
                     fontSize: 30,
                     letterSpacing: 3,

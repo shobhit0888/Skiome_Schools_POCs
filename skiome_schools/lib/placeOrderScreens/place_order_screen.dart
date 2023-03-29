@@ -10,15 +10,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:http/http.dart' as http;
+import 'package:skiome_schools/models/objects.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
   String? addressId;
   double? totalAmount;
-  String? centreUID;
+  // String? centreUID;
+  // String? categoryId;
+  Objects? model;
   PlaceOrderScreen({
     this.addressId,
     this.totalAmount,
-    this.centreUID,
+    // this.centreUID,
+    // this.categoryId,
+    this.model,
   });
 
   @override
@@ -37,7 +42,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       "orderTime": orderId,
       "orderId": orderId,
       "isSuccess": true,
-      "centreUID": widget.centreUID,
+      "centreUID": widget.model!.centreUID,
+      "categoryId": widget.model!.categoryId,
       "status": "normal",
     }).whenComplete(() {
       saveOrderDetailsForCentre({
@@ -49,12 +55,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         "orderTime": orderId,
         "orderId": orderId,
         "isSuccess": true,
-        "centreUID": widget.centreUID,
+        "centreUID": widget.model!.centreUID,
+        "categoryId": widget.model!.categoryId,
         "status": "normal",
       }).whenComplete(() {
         cartMethods.clearCart(context);
         //send push notifications to centre about new order which placed by user
-        sendNotificationToCentre(widget.centreUID.toString(), orderId);
+        sendNotificationToCentre(widget.model!.centreUID.toString(), orderId);
 
         Fluttertoast.showToast(
             msg: "Congratulations, Order has been placed successfully.");
@@ -141,6 +148,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
           ),
           ElevatedButton(
               onPressed: () {
+                // print(widget.model!.centreUID.toString() + "   maro");
                 orderDetails();
               },
               style: ElevatedButton.styleFrom(

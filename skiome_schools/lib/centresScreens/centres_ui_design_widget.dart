@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,8 +11,10 @@ import '../models/centres.dart';
 
 class CentresUiDesignWidget extends StatefulWidget {
   Centres? model;
+  int? token;
   CentresUiDesignWidget({
     this.model,
+    this.token,
   });
 
   @override
@@ -26,47 +30,68 @@ class _CentresUiDesignWidgetState extends State<CentresUiDesignWidget> {
             context,
             MaterialPageRoute(
                 builder: (c) => CategoriesScreen(
+                      token: widget.token,
                       model: widget.model,
                     )));
       },
       child: Card(
         color: Colors.black54,
         elevation: 20,
-        shadowColor: Colors.grey,
+        shadowColor: Colors.grey[200],
         child: SizedBox(
-          height: 270,
+          height: 305,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Image.network(
-                  widget.model!.photoUrl.toString(),
-                  height: 220,
-                  fit: BoxFit.fill,
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    widget.model!.photoUrl.toString(),
+                    height: 250,
+                    width: MediaQuery.of(context).size.width * .4,
+                    fit: BoxFit.fill,
+                  ),
                 ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.model!.name.toString(),
+                    style: TextStyle(
+                      color: Colors.pinkAccent,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SmoothStarRating(
+                    rating: widget.model!.ratings == null
+                        ? 0.0
+                        : double.parse(widget.model!.ratings.toString()),
+                    allowHalfRating: true,
+                    starCount: 5,
+                    color: Colors.pinkAccent,
+                    borderColor: Colors.pinkAccent,
+                    size: 16,
+                  ),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // Text(
+                  //   "Address: ",
+                  //   style: TextStyle(
+                  //     color: Colors.pinkAccent,
+                  //     fontSize: 18,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                ],
               ),
               SizedBox(
                 height: 1,
               ),
-              Text(
-                widget.model!.name.toString(),
-                style: TextStyle(
-                  color: Colors.pinkAccent,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SmoothStarRating(
-                rating: widget.model!.ratings == null
-                    ? 0.0
-                    : double.parse(widget.model!.ratings.toString()),
-                allowHalfRating: true,
-                starCount: 5,
-                color: Colors.pinkAccent,
-                borderColor: Colors.pinkAccent,
-                size: 16,
-              )
             ],
           ),
         ),

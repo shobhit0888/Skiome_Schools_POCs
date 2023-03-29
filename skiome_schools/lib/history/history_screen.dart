@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../global/global.dart';
+import '../models/orders.dart';
 import '../ordersScreens/order_card.dart';
 
 // import 'package:velocity_x/velocity_x.dart';
@@ -54,8 +55,12 @@ class _HistoryScreen extends State<HistoryScreen> {
 
             return ListView.builder(
               itemBuilder: (context, index) {
+                Orders model = Orders.fromJson(dataSnapshot.data.docs[index]
+                    .data() as Map<String, dynamic>);
                 return FutureBuilder(
                   future: FirebaseFirestore.instance
+                      .collection("ObjectCategories")
+                      .doc(model.categoryId)
                       .collection("Objects")
                       .where("objectId",
                           whereIn: cartMethods.separateOrderObjectIDs(
@@ -68,10 +73,6 @@ class _HistoryScreen extends State<HistoryScreen> {
                       .get(),
                   builder: (c, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
-                      // Orders model = Orders.fromJson(
-                      //     snapshot.data.docs[index].data()
-                      //         as Map<String, dynamic>);
-
                       return OrderCard(
                         itemCount: snapshot.data.docs.length,
                         data: snapshot.data.docs,

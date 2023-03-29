@@ -10,13 +10,16 @@ import 'package:skiome_schools/addressScreens/save_new_address_screen.dart';
 import 'package:skiome_schools/assistantMethods/address_changer.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:skiome_schools/models/address.dart';
+import 'package:skiome_schools/models/objects.dart';
 // import 'package:velocity_x/velocity_x.dart';
 
 class AddressScreen extends StatefulWidget {
-  String? centreUID;
+  // String? centreUID;
+  Objects? model;
   double? totalAmount;
   AddressScreen({
-    this.centreUID,
+    // this.centreUID,
+    this.model,
     this.totalAmount,
   });
 
@@ -56,7 +59,7 @@ class _AddressScreenState extends State<AddressScreen> {
               context,
               MaterialPageRoute(
                   builder: (c) => SaveNewAddress(
-                        centreUID: widget.centreUID.toString(),
+                        centreUID: widget.model!.centreUID.toString(),
                         totalAmount: widget.totalAmount!.toDouble(),
                       )));
         },
@@ -90,7 +93,8 @@ class _AddressScreenState extends State<AddressScreen> {
                             value: index,
                             addressId: dataSnapshot.data.docs[index].id,
                             totalAmount: widget.totalAmount,
-                            centreUID: widget.centreUID,
+                            // centreUID: widget.model!.centreUID,
+                            model: widget.model,
                           );
                         },
                         itemCount: dataSnapshot.data.docs.length,
