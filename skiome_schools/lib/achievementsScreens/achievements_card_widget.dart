@@ -2,21 +2,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:skiome_schools/achievementsScreens/achievements_screen.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
+import 'package:skiome_schools/competitionsScreens/competitions_screen.dart';
+import 'package:skiome_schools/eventsScreens/events_screen.dart';
 import 'package:skiome_schools/teachersScreens/teachers_screen.dart';
 
-class TeachersCardWidget extends StatefulWidget {
+class AchievementsCardWidget extends StatefulWidget {
   @override
-  State<TeachersCardWidget> createState() => _OurObjectsCardWidgetState();
+  State<AchievementsCardWidget> createState() => _CompetitionsCardWidgetState();
 }
 
-class _OurObjectsCardWidgetState extends State<TeachersCardWidget> {
+class _CompetitionsCardWidgetState extends State<AchievementsCardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => TeachersScreen()));
+            context, MaterialPageRoute(builder: (c) => AchievementsScreen()));
       },
       child: Card(
         elevation: 15,
@@ -32,11 +35,11 @@ class _OurObjectsCardWidgetState extends State<TeachersCardWidget> {
                   height: 2,
                 ),
                 Text(
-                  "Teachers",
+                  "Achievements",
                   style: TextStyle(
                     color: Colors.deepPurple,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 16,
                     letterSpacing: 1,
                   ),
                 ),
@@ -53,15 +56,6 @@ class _OurObjectsCardWidgetState extends State<TeachersCardWidget> {
                   height: 130,
                   fit: BoxFit.cover,
                 ),
-
-                // Text(
-                //   widget.model!.longDescription.toString(),
-                //   style: TextStyle(
-                //     color: Colors.grey,
-                //     fontSize: 14,
-                //     letterSpacing: 3,
-                //   ),
-                // ),
               ],
             ),
           ),

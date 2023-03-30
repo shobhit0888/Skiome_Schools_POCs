@@ -76,8 +76,8 @@ class _CartScreenState extends State<CartScreen> {
       // sharedPreferences!.setStringList("userCart", ["initialValue"]);
       // Provider.of<CartObjectCounter>(context, listen: false)
       //     .showCartListObjectsNumber();
-      print("main hu");
-      print(cartList.toString());
+      // print("main hu");
+      // print(cartList.toString());
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (c) => MySplashScreen()));
     });

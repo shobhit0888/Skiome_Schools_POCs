@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
-import 'package:skiome_schools/clubsScreens/clubs_screen.dart';
+import 'package:skiome_schools/clubs_Screens/clubs_screen.dart';
 import 'package:skiome_schools/competitionsScreens/competitions_screen.dart';
 import 'package:skiome_schools/eventsScreens/events_screen.dart';
 import 'package:skiome_schools/teachersScreens/teachers_screen.dart';
@@ -35,7 +35,7 @@ class _CompetitionsCardWidgetState extends State<ClubsCardWidget> {
                   height: 2,
                 ),
                 Text(
-                  "Competitions",
+                  "Clubs",
                   style: TextStyle(
                     color: Colors.deepPurple,
                     fontWeight: FontWeight.bold,

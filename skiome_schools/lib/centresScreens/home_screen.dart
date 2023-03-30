@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:skiome_schools/achievementsScreens/achievements_card_widget.dart';
 import 'package:skiome_schools/centresScreens/centres_ui_design_widget.dart';
+import 'package:skiome_schools/clubs_Screens/clubs_card.widget.dart';
 import 'package:skiome_schools/competitionsScreens/competitions_card_widget.dart';
 import 'package:skiome_schools/eventsScreens/events_card_widget.dart';
 import 'package:skiome_schools/functions/functions.dart';
@@ -287,7 +289,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       CompetitionsCardWidget(),
+                      ClubsCardWidget(),
                     ],
+                  ),
+                  Row(
+                    children: [AchievementsCardWidget()],
                   ),
                   SizedBox(
                     height: 50,
