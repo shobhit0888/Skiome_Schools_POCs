@@ -35,7 +35,7 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white54,
+      color: Color(0xFF2a4371),
       child: Column(
         children: [
           //address info
@@ -63,11 +63,17 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
                             const Text(
                               "Name: ",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white70,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(widget.addressModel!.name.toString())
+                            Text(
+                              widget.addressModel!.name.toString(),
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
                           ],
                         ),
                         const TableRow(
@@ -85,11 +91,17 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
                             const Text(
                               "Phone Number: ",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white70,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(widget.addressModel!.phoneNumber.toString())
+                            Text(
+                              widget.addressModel!.phoneNumber.toString(),
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
                           ],
                         ),
                         const TableRow(
@@ -107,12 +119,17 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
                             const Text(
                               "Full Address: ",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white70,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                                widget.addressModel!.completeAddress.toString())
+                              widget.addressModel!.completeAddress.toString(),
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
                           ],
                         ),
                         const TableRow(
@@ -135,7 +152,6 @@ class _AddressDesignWidgetState extends State<AddressDesignWidget> {
           widget.value == Provider.of<AddressChanger>(context).count
               ? ElevatedButton(
                   onPressed: () {
-                    
                     //send the user to place order screen
                     Navigator.push(
                         context,

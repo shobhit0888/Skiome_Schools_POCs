@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
+import 'package:skiome_schools/mainScreens/main_screen.dart';
 
 class StatusBanner extends StatelessWidget {
   bool? status;
@@ -18,29 +19,29 @@ class StatusBanner extends StatelessWidget {
     String? message;
     IconData? iconData;
     status! ? iconData = Icons.done : iconData = Icons.cancel;
-    status! ? message = "Successfull" : message = "UnSuccessfull";
+    status! ? message = "Successfully" : message = "UnSuccessfully";
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Colors.pinkAccent,
-          Colors.purpleAccent,
+          Color(0xFF131720),
+          Color(0xFF2a4371),
         ],
         begin: FractionalOffset(0.0, 0.0),
         end: FractionalOffset(1.0, 0.0),
         stops: [0.0, 1.0],
         tileMode: TileMode.clamp,
       )),
-      height: 70,
+      height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.only(top: 1.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (c) => HomeScreen()));
+                    context, MaterialPageRoute(builder: (c) => MainScreen()));
               },
               child: Icon(
                 Icons.arrow_back,
@@ -59,13 +60,13 @@ class StatusBanner extends StatelessWidget {
                         : orderStatus == "normal"
                             ? "Order Placed $message"
                             : "",
-                style: TextStyle(color: Colors.white, fontSize: 16)),
+                style: TextStyle(color: Colors.white, fontSize: 18)),
             // const SizedBox(
             //   width: 6,
             // ),
             CircleAvatar(
               radius: 10,
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.green,
               child: Center(
                   child: Icon(
                 iconData,

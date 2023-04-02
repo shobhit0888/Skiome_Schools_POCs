@@ -31,14 +31,24 @@ class _SchoolsUiDesignWidgetState extends State<EventsUiDesignWidget> {
                       model: widget.model,
                     )));
       },
-      child: Card(
-        elevation: 10,
-        shadowColor: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: SizedBox(
-            height: 270,
-            width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF006494),
+                    Color(0xFF0582ca),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          height: 270,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4.0),
             child: Column(
               children: [
                 const SizedBox(
@@ -47,19 +57,23 @@ class _SchoolsUiDesignWidgetState extends State<EventsUiDesignWidget> {
                 Text(
                   widget.model!.eventName.toString(),
                   style: TextStyle(
-                    color: Colors.deepPurple,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    letterSpacing: 3,
+                    fontSize: 17,
+                    letterSpacing: 2,
                   ),
                 ),
                 const SizedBox(
                   height: 2,
                 ),
-                Image.network(
-                  widget.model!.photoUrl.toString(),
-                  height: 200,
-                  fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Image.network(
+                    widget.model!.photoUrl.toString(),
+                    height: 170,
+                    width: MediaQuery.of(context).size.width * .35,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(
                   height: 4,
@@ -67,7 +81,7 @@ class _SchoolsUiDesignWidgetState extends State<EventsUiDesignWidget> {
                 Text(
                   widget.model!.time.toString(),
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.white70,
                     fontSize: 14,
                     letterSpacing: 3,
                   ),
@@ -78,7 +92,7 @@ class _SchoolsUiDesignWidgetState extends State<EventsUiDesignWidget> {
                 Text(
                   widget.model!.venue.toString(),
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.white70,
                     fontSize: 14,
                     letterSpacing: 3,
                   ),

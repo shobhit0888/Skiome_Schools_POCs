@@ -29,15 +29,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF131720),
+
       // drawer: MyDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -58,6 +59,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               pinned: true,
               delegate: TextDelegateHeaderWidget(
                   title: widget.model!.name.toString() + " - Categories")),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
           //write   query
           //model
           //design widget
@@ -73,7 +79,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               {
                 //show categories
                 return SliverStaggeredGrid.countBuilder(
-                  crossAxisCount: 1,
+                  crossAxisCount: 2,
                   staggeredTileBuilder: (c) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     Categories categoriesModel = Categories.fromJson(

@@ -39,8 +39,8 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            Colors.pinkAccent,
-            Colors.purpleAccent,
+            Color(0xFF131720),
+            Color(0xFF2a4371),
           ],
           begin: FractionalOffset(0.0, 0.0),
           end: FractionalOffset(1.0, 0.0),
@@ -74,6 +74,7 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
                         context,
                         MaterialPageRoute(
                             builder: (c) => CartScreen(
+                                  token: widget.token,
                                   // centreUID: widget.centreUID,
                                   model: widget.model,
                                 )));
@@ -88,7 +89,7 @@ class _AppBarCartBadgeState extends State<AppBarCartBadge> {
               children: [
                 Icon(
                   Icons.brightness_1,
-                  color: Colors.deepPurpleAccent,
+                  color: Color(0xFF131720),
                   size: 20,
                 ),
                 Positioned(

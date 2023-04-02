@@ -27,38 +27,45 @@ class _ObjectsUiDesignWidgetState extends State<ObjectsUiDesignWidget> {
             context,
             MaterialPageRoute(
                 builder: (c) => ObjectsDetailsScreen(
-                      model: widget.model,
-                      token:widget.token
-                    )));
+                    model: widget.model, token: widget.token)));
       },
-      child: Card(
-        color: Colors.black,
-        elevation: 10,
-        shadowColor: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: SizedBox(
-            height: 270,
-            width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Container(
+          height: 160,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFa5115b),
+                    Color(0xFFef4199),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
             child: Column(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(15),
                   child: Image.network(
                     widget.model!.thumbnailUrl.toString(),
-                    height: 220,
+                    height: 105,
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
-                  height: 1,
+                  height: 4,
                 ),
                 Text(
                   widget.model!.objectName.toString(),
                   style: TextStyle(
-                    color: Colors.deepPurple,
+                    color: Colors.grey[300],
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 17,
                     letterSpacing: 3,
                   ),
                 ),
@@ -68,7 +75,7 @@ class _ObjectsUiDesignWidgetState extends State<ObjectsUiDesignWidget> {
                 Text(
                   widget.model!.longDescription.toString(),
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.grey[400],
                     fontSize: 14,
                     letterSpacing: 3,
                   ),

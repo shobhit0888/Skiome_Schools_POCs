@@ -19,14 +19,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),

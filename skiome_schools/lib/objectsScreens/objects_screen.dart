@@ -27,14 +27,14 @@ class _ItemsScreenState extends State<ObjectsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -55,7 +55,11 @@ class _ItemsScreenState extends State<ObjectsScreen> {
               delegate: TextDelegateHeaderWidget(
             title: widget.model!.categoryName.toString() + " Objects",
           )),
-
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
           //1. query
           //2. model
           //3. ui design widget
@@ -83,7 +87,7 @@ class _ItemsScreenState extends State<ObjectsScreen> {
                     );
                     print("yes");
                     return ObjectsUiDesignWidget(
-                      token:widget.token,
+                      token: widget.token,
                       model: objectsModel,
                     );
                   },

@@ -86,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF131720),
       appBar: AppBarCartBadge(),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -95,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
             height: 10,
           ),
           FloatingActionButton.extended(
+            backgroundColor: Color(0xFF2a4371),
             onPressed: () {
               if (widget.token == 0) {
                 cartMethods.clearCart(context);
@@ -113,6 +114,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           FloatingActionButton.extended(
+            backgroundColor: Color(0xFF2a4371),
             onPressed: () {
               // print("......" + widget.model!.centreUID.toString());
               if (widget.token == 0) {
@@ -140,11 +142,11 @@ class _CartScreenState extends State<CartScreen> {
         slivers: [
           SliverToBoxAdapter(
             child: Container(
-              color: Colors.black54,
+              color: Colors.transparent,
               child: Consumer2<TotalAmount, CartObjectCounter>(
                   builder: (context, amountProvider, cartProvider, c) {
                 return Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: cartProvider.count == 0
                         ? Container()
@@ -155,7 +157,7 @@ class _CartScreenState extends State<CartScreen> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 2,
-                              fontSize: 22,
+                              fontSize: 20,
                             ),
                           ),
                   ),
@@ -170,8 +172,6 @@ class _CartScreenState extends State<CartScreen> {
 
           StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection("ObjectCategories")
-                .doc(widget.model!.categoryId)
                 .collection("Objects")
                 .where("objectId",
                     whereIn: cartMethods.separateObjectIDsFromUserCartList())

@@ -29,7 +29,7 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF131720),
       appBar: AppBarCartBadge(
           token: widget.token,
           // centreUID: widget.model!.categoryId.toString(),
@@ -37,7 +37,7 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           int objectCounter = counterLimit;
-          
+
           List<String> objectsIDsList =
               cartMethods.separateObjectIDsFromUserCartList();
           //1. check if then exist already in cart
@@ -67,13 +67,16 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
           Icons.delete_sweep_outlined,
           color: Colors.white,
         ),
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: Color(0xFF2a4371),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(widget.model!.thumbnailUrl.toString()),
+            Container(
+                height: MediaQuery.of(context).size.height * .4,
+                width: MediaQuery.of(context).size.width,
+                child: Image.network(widget.model!.thumbnailUrl.toString())),
             //implement object counter
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -83,7 +86,7 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
                   size: 45,
                   style: CartStepperTheme.of(context).copyWith(
                     activeForegroundColor: Colors.white,
-                    activeBackgroundColor: Colors.pinkAccent,
+                    activeBackgroundColor: Color(0xFF2a4371),
                   ),
                   didChangeCount: (value) {
                     if (value < 1) {
@@ -99,36 +102,36 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10.0),
+              padding: const EdgeInsets.only(left: 18.0, top: 10.0),
               child: Text(
                 widget.model!.objectName.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.pinkAccent),
+                    color: Colors.white70),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              padding: const EdgeInsets.only(left: 18.0, right: 8.0, top: 8.0),
               child: Text(
                 widget.model!.longDescription.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
-                    color: Colors.grey),
+                    color: Colors.white60),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(18.0),
               child: Text(
                 widget.model!.objectPrice.toString() + " Rs.",
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
-                    color: Colors.pinkAccent),
+                    color: Colors.white),
               ),
             ),
             const Padding(
@@ -136,7 +139,7 @@ class _ObjectsDetailsScreenState extends State<ObjectsDetailsScreen> {
               child: Divider(
                 height: 1,
                 thickness: 2,
-                color: Colors.pinkAccent,
+                color: Colors.blue,
               ),
             ),
             SizedBox(

@@ -27,47 +27,48 @@ class _ItemsScreenState extends State<TeachersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) => TeachersRegistrationTabPage())));
+        },
+        label: const Text("Add new teacher"),
+        icon: Icon(
+          Icons.add_box_outlined,
+          color: Colors.white,
+        ),
+        backgroundColor: Color(0xFF2a4371),
+      ),
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
+            end: FractionalOffset(1.5, 0.0),
             stops: [0.0, 1.0],
             tileMode: TileMode.clamp,
           )),
         ),
         title: Text(
-          "Skiome Centre",
+          "Teachers",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) => TeachersRegistrationTabPage())));
-              },
-              icon: Icon(
-                Icons.add_box_rounded,
-                color: Colors.white,
-              ))
-        ],
       ),
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(
-              delegate: TextDelegateHeaderWidget(
-            title: " Teachers",
-          )),
+          // SliverPersistentHeader(
+          //     delegate: TextDelegateHeaderWidget(
+          //   title: " Teachers",
+          // )),
           SliverToBoxAdapter(
             child: SizedBox(
               height: 10,

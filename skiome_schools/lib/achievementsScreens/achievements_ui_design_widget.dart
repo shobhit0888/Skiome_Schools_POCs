@@ -5,7 +5,6 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:skiome_schools/achievementsScreens/achievements_screen.dart';
 
-
 import '../functions/functions.dart';
 import '../global/global.dart';
 import '../models/achievements.dart';
@@ -53,12 +52,13 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
         //             )));
       },
       child: Card(
-        elevation: 10,
-        shadowColor: Colors.black,
+        color: Color(0xFF131720),
+        elevation: 7,
+        shadowColor: Color(0xFF2a4371),
         child: Padding(
           padding: const EdgeInsets.all(4),
           child: SizedBox(
-            height: 270,
+            height: 140,
             width: MediaQuery.of(context).size.width,
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -68,12 +68,13 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
                   padding: const EdgeInsets.all(10),
                   child: Image.network(
                     widget.model!.photoUrl.toString(),
-                    height: 220,
+                    height: 130,
+                    width: MediaQuery.of(context).size.width * 0.30,
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
-                  width: 15,
+                  width: 10,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -84,10 +85,10 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
                           widget.model!.achievementName.toString(),
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        color: Colors.deepPurple,
+                        color: Colors.grey[300],
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        letterSpacing: 3,
+                        letterSpacing: 1,
                       ),
                     ),
                     const SizedBox(
@@ -97,10 +98,10 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
                       "Competition Name: " +
                           widget.model!.competitionName.toString(),
                       style: TextStyle(
-                        color: Colors.deepPurple,
+                        color: Colors.grey[300],
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        letterSpacing: 3,
+                        letterSpacing: 1,
                       ),
                     ),
                     const SizedBox(
@@ -109,10 +110,10 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
                     Text(
                       "Awarded By: " + widget.model!.awardedBy.toString(),
                       style: TextStyle(
-                        color: Colors.deepPurple,
+                        color: Colors.grey[400],
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        letterSpacing: 3,
+                        letterSpacing: 1,
                       ),
                     ),
                     const SizedBox(
@@ -121,10 +122,10 @@ class _CategoriesUiDesignWidgetState extends State<AchievementsUiDesignWidget> {
                     Text(
                       "Authorised By: " + widget.model!.authorisedBy.toString(),
                       style: TextStyle(
-                        color: Colors.deepPurple,
+                        color: Colors.grey[400],
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        letterSpacing: 3,
+                        letterSpacing: 1,
                       ),
                     ),
                   ],

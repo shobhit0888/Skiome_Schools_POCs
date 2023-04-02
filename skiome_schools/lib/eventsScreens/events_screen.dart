@@ -19,13 +19,14 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -34,14 +35,11 @@ class _EventsScreenState extends State<EventsScreen> {
           )),
         ),
         title: Text(
-                "Our Centre",
-                style: TextStyle(
-                    color: Colors.purpleAccent,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+          "Our Centre",
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        
       ),
       body: CustomScrollView(
         slivers: [

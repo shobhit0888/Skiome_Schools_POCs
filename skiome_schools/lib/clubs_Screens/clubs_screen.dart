@@ -15,10 +15,8 @@ import '../models/clubs.dart';
 import '../widgets/text_delegate_header_widget.dart';
 
 class ClubsScreen extends StatefulWidget {
- 
   ClubsScreen({
     Key? key,
-    
   }) : super(key: key);
 
   @override
@@ -67,14 +65,15 @@ class _HomeScreenState extends State<ClubsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF131720),
       // drawer: MyDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -83,23 +82,23 @@ class _HomeScreenState extends State<ClubsScreen> {
           )),
         ),
         title: Text(
-                  "Skiome Centres",
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    letterSpacing: 1,
-                  ),
-                ),
+          "Clubs",
+          style: TextStyle(
+            // color: Colors.deepPurple,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            letterSpacing: 1,
+          ),
+        ),
         centerTitle: true,
-       
       ),
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(
-              delegate: TextDelegateHeaderWidget(
-            title: "Clubs",
-          )),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
 
           //write   query
           //model
@@ -116,7 +115,7 @@ class _HomeScreenState extends State<ClubsScreen> {
               {
                 //show categories
                 return SliverStaggeredGrid.countBuilder(
-                  crossAxisCount: 2,
+                  crossAxisCount: 1,
                   staggeredTileBuilder: (c) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     Clubs clubsModel = Clubs.fromJson(

@@ -34,11 +34,30 @@ class _CentresUiDesignWidgetState extends State<CentresUiDesignWidget> {
                       model: widget.model,
                     )));
       },
-      child: Card(
-        color: Colors.black54,
-        elevation: 20,
-        shadowColor: Colors.grey[200],
-        child: SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF2a4371),
+                  Color(0xFF131720),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 8,
+                    color: Colors.black26,
+                    offset: Offset(
+                      0,
+                      -3,
+                    ))
+              ]),
           height: 305,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -46,35 +65,41 @@ class _CentresUiDesignWidgetState extends State<CentresUiDesignWidget> {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(15),
                   child: Image.network(
                     widget.model!.photoUrl.toString(),
                     height: 250,
-                    width: MediaQuery.of(context).size.width * .4,
+                    width: MediaQuery.of(context).size.width,
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.model!.name.toString(),
-                    style: TextStyle(
-                      color: Colors.pinkAccent,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Text(
+                      widget.model!.name.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SmoothStarRating(
-                    rating: widget.model!.ratings == null
-                        ? 0.0
-                        : double.parse(widget.model!.ratings.toString()),
-                    allowHalfRating: true,
-                    starCount: 5,
-                    color: Colors.pinkAccent,
-                    borderColor: Colors.pinkAccent,
-                    size: 16,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 210.0),
+                    child: SmoothStarRating(
+                      rating: widget.model!.ratings == null
+                          ? 0.0
+                          : double.parse(widget.model!.ratings.toString()),
+                      allowHalfRating: true,
+                      starCount: 5,
+                      color: Colors.blueAccent,
+                      borderColor: Colors.blueAccent,
+                      size: 16,
+                    ),
                   ),
                   // SizedBox(
                   //   height: 15,

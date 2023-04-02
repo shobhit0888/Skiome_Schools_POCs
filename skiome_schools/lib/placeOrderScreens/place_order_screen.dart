@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/global/global.dart';
 import 'package:http/http.dart' as http;
+import 'package:skiome_schools/mainScreens/main_screen.dart';
 import 'package:skiome_schools/models/objects.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         Fluttertoast.showToast(
             msg: "Congratulations, Order has been placed successfully.");
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => HomeScreen()));
+            context, MaterialPageRoute(builder: (c) => MainScreen()));
         orderId = "";
       });
     });

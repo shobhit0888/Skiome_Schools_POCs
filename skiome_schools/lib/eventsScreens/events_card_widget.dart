@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
 import 'package:skiome_schools/eventsScreens/events_screen.dart';
 import 'package:skiome_schools/teachersScreens/teachers_screen.dart';
@@ -19,52 +20,59 @@ class _EventsCardWidgetState extends State<EventsCardWidget> {
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => EventsScreen()));
       },
-      child: Card(
-        elevation: 15,
-        shadowColor: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 4),
-          child: SizedBox(
-            height: 170,
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                Text(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Container(
+          height: 130,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF4c1ab1),
+                    Color(0xFF7c42ec),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Text(
                   "Events & Workshops",
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  style: GoogleFonts.poppins(
+                    color: Colors.grey[300],
+                    fontWeight: FontWeight.w400,
+                    fontSize: 17,
                     letterSpacing: 1,
                   ),
                 ),
-                Divider(
-                  height: 2,
-                  thickness: 2,
-                  color: Colors.purpleAccent,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Container(
+                  height: 60,
+                  child: Image.asset(
+                    "images/welcome.png",
+                    height: 130,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Image.asset(
-                  "images/welcome.png",
-                  height: 130,
-                  fit: BoxFit.cover,
-                ),
-
-                // Text(
-                //   widget.model!.longDescription.toString(),
-                //   style: TextStyle(
-                //     color: Colors.grey,
-                //     fontSize: 14,
-                //     letterSpacing: 3,
-                //   ),
-                // ),
-              ],
-            ),
+              ),
+              // Divider(
+              //   height: 2,
+              //   thickness: 2,
+              //   color: Colors.purpleAccent,
+              // ),
+              const SizedBox(
+                width: 20,
+              ),
+            ],
           ),
         ),
       ),

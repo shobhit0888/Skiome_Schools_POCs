@@ -27,19 +27,21 @@ class _OrderCardState extends State<OrderCard> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => OrderDetailsScreen(
-              orderId: widget.orderId,
-            )));
+            context,
+            MaterialPageRoute(
+                builder: (c) => OrderDetailsScreen(
+                      orderId: widget.orderId,
+                    )));
       },
       child: Card(
-        color: Colors.black,
+        color: Color(0xFF2a4371),
         elevation: 10,
-        shadowColor: Colors.white54,
+        shadowColor: Colors.white24,
         child: Container(
           color: Colors.transparent,
           padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.all(10),
-          height: widget.itemCount! * 125, //5*125
+          height: widget.itemCount! * 100, //5*125
           child: ListView.builder(
             itemCount: widget.itemCount,
             itemBuilder: (context, index) {
@@ -59,7 +61,7 @@ Widget placedOrderObjectsDesignWidget(
     Objects objects, BuildContext context, objectQuantity) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    height: 120,
+    height: 100,
     color: Colors.transparent,
     child: Row(
       children: [
@@ -67,7 +69,7 @@ Widget placedOrderObjectsDesignWidget(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
             objects.thumbnailUrl.toString(),
-            width: 120,
+            width: 100,
           ),
         ),
         SizedBox(
@@ -85,21 +87,20 @@ Widget placedOrderObjectsDesignWidget(
                     Expanded(
                       child: Text(
                         objects.objectName.toString(),
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      "Rs.",
-                      style:
-                          TextStyle(color: Colors.purpleAccent, fontSize: 16),
+                      "Rs. ",
+                      style: TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                     Text(
                       objects.objectPrice.toString(),
                       style: TextStyle(
-                          color: Colors.purpleAccent,
+                          color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
@@ -120,8 +121,7 @@ Widget placedOrderObjectsDesignWidget(
                     ),
                     Text(
                       objectQuantity,
-                      style:
-                          TextStyle(color: Colors.purpleAccent, fontSize: 28),
+                      style: TextStyle(color: Colors.white70, fontSize: 28),
                     ),
                   ],
                 ),

@@ -19,9 +19,9 @@ class _CartObjectDesignWidgetState extends State<CartObjectDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.black,
+      color: Color(0xFF2a4371),
       shadowColor: Colors.white54,
-      elevation: 10,
+      elevation: 6,
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: SizedBox(

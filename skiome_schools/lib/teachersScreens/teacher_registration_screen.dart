@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skiome_schools/centresScreens/home_screen.dart';
+import 'package:skiome_schools/mainScreens/main_screen.dart';
 
 import '../global/global.dart';
 import '../widgets/custom_text_field.dart';
@@ -315,7 +316,7 @@ class _SchoolsRegistrationTabPageState
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => HomeScreen())));
+                              builder: ((context) => MainScreen())));
                     }),
                     child: const Text(
                       "SignUp",

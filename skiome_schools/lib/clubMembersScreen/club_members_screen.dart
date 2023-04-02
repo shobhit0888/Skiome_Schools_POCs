@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skiome_schools/clubMembersScreen/club_members_ui_design_widget.dart';
 
 import '../models/clubMembers.dart';
@@ -20,80 +21,17 @@ class ClubsDetailsScreen extends StatefulWidget {
 }
 
 class _ObjectsDetailsScreenState extends State<ClubsDetailsScreen> {
-  // saveObjectCategoryInfo() {
-  //   FirebaseFirestore.instance
-  //       .collection("UsersSchools")
-  //       .doc(sharedPreferences!.getString("uid"))
-  //       .collection("Clu")
-  //       .doc(widget.model!.categoryId)
-  //       .collection("Objects")
-  //       .doc(widget.model!.objectId)
-  //       .set({
-  //     "objectId": widget.model!.objectId,
-  //     "categoryId": widget.model!.categoryId.toString(),
-  //     "centreUID": sharedPreferences!.getString("uid"),
-  //     // "centreName": sharedPreferences!.getString("name"),
-  //     "objectInfo": widget.model!.objectInfo.toString(),
-  //     "objectName": widget.model!.objectName.toString(),
-  //     "longDescription": widget.model!.longDescription.toString(),
-  //     "objectPrice": widget.model!.objectPrice.toString(),
-  //     "publishDate": widget.model!.publishDate.toString(),
-  //     "status": "available",
-  //     "thumbnailUrl": widget.model!.thumbnailUrl.toString(),
-  //   });
-  //   // .then((value) {
-  //   //   FirebaseFirestore.instance.collection("Objects").doc(objectUniqueId).set({
-  //   //     "objectId": objectUniqueId,
-  //   //     "categoryId": widget.model!.categoryId.toString(),
-  //   //     // "centreUID": sharedPreferences!.getString("uid"),
-  //   //     // "centreName": sharedPreferences!.getString("name"),
-  //   //     "objectInfo": objectInfoTextEditingController.text.trim(),
-  //   //     "objectName": objectNameTextEditingController.text.trim(),
-  //   //     "longDescription": objectDescriptionTextEditingController.text.trim(),
-  //   //     "objectPrice": objectPriceTextEditingController.text.trim(),
-  //   //     "publishDate": DateTime.now(),
-  //   //     "status": "available",
-  //   //     "thumbnailUrl": downloadUrlImage,
-  //   //   });
-  //   // }
-  //   // );
-  //   // setState(() {
-  //   //   uploading = false;
-  //   // });
-  //   // Navigator.push(context,
-  //   //     MaterialPageRoute(builder: ((context) => HomeScreenForCentre())));
-  // }
-
-  // deleteObject() {
-  //   FirebaseFirestore.instance
-  //       // .collection("Centres")
-  //       // .doc(sharedPreferences!.getString("uid"))
-  //       .collection("ObjectCategories")
-  //       .doc(widget.model!.categoryId)
-  //       .collection("Objects")
-  //       .doc(widget.model!.objectId)
-  //       .delete()
-  //       .then((value) {
-  //     FirebaseFirestore.instance
-  //         .collection("Objects")
-  //         .doc(widget.model!.objectId)
-  //         .delete();
-  //     Fluttertoast.showToast(msg: "Object Deleted Successfully");
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (c) => MySplashScreen()));
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -103,129 +41,207 @@ class _ObjectsDetailsScreenState extends State<ClubsDetailsScreen> {
         ),
         title: Text(widget.model!.clubName.toString()),
         centerTitle: true,
-       
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(widget.model!.photoUrl.toString()),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10.0),
-              child: Text(
-                widget.model!.clubName.toString(),
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.pinkAccent),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 8,
+                right: 8,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-              child: Text(
-                widget.model!.tagline.toString(),
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 15,
+              child: ClipPath(
+                clipper: CurveClipper(),
+                child: Container(
+                  height: 170,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF4c1ab1),
+                          Color(0xFF7c42ec),
+                        ],
+                        begin: FractionalOffset(0.0, 0.0),
+                        end: FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                    // borderRadius: BorderRadius.all(Radius.circular(15))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                        widget.model!.photoUrl.toString(),
+                        height: 170,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Text(
+                            "Club Name: " + widget.model!.clubName.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white),
+                          ),
+                          Text(
+                            "Tagline: " + widget.model!.tagline.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Objective: " + widget.model!.objective.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.white70),
+                          ),
+                          Text(
+                            "Category: " + widget.model!.category.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.white70),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                widget.model!.objective.toString() + " Rs.",
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                widget.model!.category.toString() + " Rs.",
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                widget.model!.publishDate.toString() + " Rs.",
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 300.0),
-              child: Divider(
-                height: 1,
-                thickness: 2,
-                color: Colors.pinkAccent,
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * .75,
-              child: CustomScrollView(
-                slivers: [
-                  StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection("UsersSchools")
-                        .doc(widget.model!.schoolUID)
-                        .collection("Clubs")
-                        .doc(widget.model!.clubUID)
-                        .collection("ClubMembers")
-                        .orderBy("publishDate", descending: true)
-                        .snapshots(),
-                    builder: (context, AsyncSnapshot dataSnapshot) {
-                      if (dataSnapshot.hasData) //if categoies exist
-                      {
-                        //show categories
-                        return SliverStaggeredGrid.countBuilder(
-                          crossAxisCount: 2,
-                          staggeredTileBuilder: (c) =>
-                              const StaggeredTile.fit(1),
-                          itemBuilder: (context, index) {
-                            ClubMembers clubsMemberModel = ClubMembers.fromJson(
-                              dataSnapshot.data.docs[index].data()
-                                  as Map<String, dynamic>,
-                            );
-                            return ClubsMembersUiDesignWidget(
-                              schoolUID: widget.model!.schoolUID,
-                              model: clubsMemberModel,
-                              context: context,
-                            );
-                          },
-                          itemCount: dataSnapshot.data.docs.length,
-                        );
-                      } else {
-                        //if category does not exist
-                        return const SliverToBoxAdapter(
-                          child: Center(
-                            child: Text(
-                              "No Categories exists",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        );
-                      }
-                    },
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20, left: 5, bottom: 15),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(70)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(40))),
+                // color: Colors.blueGrey,
+                height: 45,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 10),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.all(Radius.circular(40))),
+                    // color: Colors.blueGrey,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "Clubs Members",
+                      style: GoogleFonts.lato(
+                          color: Colors.white70,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("UsersSchools")
+                .doc(widget.model!.schoolUID)
+                .collection("Clubs")
+                .doc(widget.model!.clubUID)
+                .collection("ClubMembers")
+                .orderBy("publishDate", descending: true)
+                .snapshots(),
+            builder: (context, AsyncSnapshot dataSnapshot) {
+              if (dataSnapshot.hasData) //if categoies exist
+              {
+                //show categories
+                return SliverStaggeredGrid.countBuilder(
+                  crossAxisCount: 2,
+                  staggeredTileBuilder: (c) => const StaggeredTile.fit(1),
+                  itemBuilder: (context, index) {
+                    ClubMembers clubsMemberModel = ClubMembers.fromJson(
+                      dataSnapshot.data.docs[index].data()
+                          as Map<String, dynamic>,
+                    );
+                    return ClubsMembersUiDesignWidget(
+                      schoolUID: widget.model!.schoolUID,
+                      model: clubsMemberModel,
+                      context: context,
+                    );
+                  },
+                  itemCount: dataSnapshot.data.docs.length,
+                );
+              } else {
+                //if category does not exist
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      "No Categories exists",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
+}
+
+class CurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    int curveHeight = 60;
+    Offset controlPoint = Offset(size.width / 2, size.height + curveHeight);
+    Offset endPoint = Offset(size.width, size.height - curveHeight);
+
+    Path path = Path()
+      ..lineTo(0, size.height - curveHeight)
+      ..quadraticBezierTo(
+          controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy)
+      ..lineTo(size.width, 0)
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

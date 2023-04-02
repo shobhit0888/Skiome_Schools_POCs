@@ -34,43 +34,52 @@ class _CategoriesUiDesignWidgetState extends State<CategoriesUiDesignWidget> {
             context,
             MaterialPageRoute(
                 builder: (c) => ObjectsScreen(
-                  token: widget.token,
+                      token: widget.token,
                       model: widget.model,
                     )));
       },
-      child: Card(
-        color: Colors.black,
-        elevation: 10,
-        shadowColor: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: SizedBox(
-            height: 270,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    widget.model!.thumbnailUrl.toString(),
-                    height: 220,
-                    fit: BoxFit.cover,
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF006494),
+                    Color(0xFF0582ca),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          height: 155,
+          width: MediaQuery.of(context).size.width * .4,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  widget.model!.thumbnailUrl.toString(),
+                  height: 110,
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(
-                  height: 1,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                widget.model!.categoryName.toString(),
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  letterSpacing: 3,
                 ),
-                Text(
-                  widget.model!.categoryName.toString(),
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    letterSpacing: 3,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

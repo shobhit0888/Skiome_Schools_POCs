@@ -24,108 +24,110 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   String orderStatus = "";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection("UsersSchools")
-              .doc(sharedPreferences!.getString("uid"))
-              .collection("Orders")
-              .doc(widget.orderId)
-              .get(),
-          builder: (c, AsyncSnapshot dataSnapshot) {
-            Map? orderDataMap;
-            if (dataSnapshot.hasData) {
-              orderDataMap = dataSnapshot.data.data() as Map<String, dynamic>;
-              orderStatus = orderDataMap["status"].toString();
-              return Column(
-                children: [
-                  StatusBanner(
-                    status: orderDataMap["isSuccess"],
-                    orderStatus: orderStatus,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Rs." + orderDataMap["totalAmount"].toString(),
-                        style: TextStyle(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+            future: FirebaseFirestore.instance
+                .collection("UsersSchools")
+                .doc(sharedPreferences!.getString("uid"))
+                .collection("Orders")
+                .doc(widget.orderId)
+                .get(),
+            builder: (c, AsyncSnapshot dataSnapshot) {
+              Map? orderDataMap;
+              if (dataSnapshot.hasData) {
+                orderDataMap = dataSnapshot.data.data() as Map<String, dynamic>;
+                orderStatus = orderDataMap["status"].toString();
+                return Column(
+                  children: [
+                    StatusBanner(
+                      status: orderDataMap["isSuccess"],
+                      orderStatus: orderStatus,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 18),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Rs." + orderDataMap["totalAmount"].toString(),
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "OrderId: " + orderDataMap["orderId"].toString(),
+                          style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "OrderId: " + orderDataMap["orderId"].toString(),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Order At: " +
-                            DateFormat("dd MMMM, yyyy - hh:mm aa").format(
-                                DateTime.fromMillisecondsSinceEpoch(
-                                    int.parse(orderDataMap["orderTime"]))),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Order At: " +
+                              DateFormat("dd MMMM, yyyy - hh:mm aa").format(
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      int.parse(orderDataMap["orderTime"]))),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
+                    const Divider(thickness: 1, color: Colors.blueGrey),
+                    orderStatus == "ended"
+                        ? Image.asset("images/delivered.png")
+                        : Image.asset("images/state.png"),
+                    const Divider(thickness: 1, color: Colors.blueGrey),
+                    FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection("UsersSchools")
+                          .doc(sharedPreferences!.getString("uid"))
+                          .collection("SchoolAddress")
+                          .doc(orderDataMap["addressId"])
+                          .get(),
+                      builder: (c, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return AddressDesign(
+                            model: Address.fromJson(
+                                snapshot.data.data() as Map<String, dynamic>),
+                            orderSatus: orderStatus,
+                            orderId: widget.orderId,
+                            centreId: orderDataMap!["centreUID"],
+                            orderByUser: orderDataMap["orderBy"],
+                          );
+                        } else {
+                          return Center(
+                            child: Text("No data exists"),
+                          );
+                        }
+                      },
+                    )
+                  ],
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    "No data exists",
                   ),
-                  const Divider(thickness: 1, color: Colors.pinkAccent),
-                  orderStatus == "ended"
-                      ? Image.asset("images/delivered.png")
-                      : Image.asset("images/state.png"),
-                  const Divider(thickness: 1, color: Colors.pinkAccent),
-                  FutureBuilder(
-                    future: FirebaseFirestore.instance
-                        .collection("UsersSchools")
-                        .doc(sharedPreferences!.getString("uid"))
-                        .collection("SchoolAddress")
-                        .doc(orderDataMap["addressId"])
-                        .get(),
-                    builder: (c, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData) {
-                        return AddressDesign(
-                          model: Address.fromJson(
-                              snapshot.data.data() as Map<String, dynamic>),
-                          orderSatus: orderStatus,
-                          orderId: widget.orderId,
-                          centreId: orderDataMap!["centreUID"],
-                          orderByUser: orderDataMap["orderBy"],
-                        );
-                      } else {
-                        return Center(
-                          child: Text("No data exists"),
-                        );
-                      }
-                    },
-                  )
-                ],
-              );
-            } else {
-              return Center(
-                child: Text(
-                  "No data exists",
-                ),
-              );
-            }
-          },
+                );
+              }
+            },
+          ),
         ),
       ),
     );

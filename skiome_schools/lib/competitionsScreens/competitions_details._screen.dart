@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../clubMembersScreen/club_members_screen.dart';
 import '../global/global.dart';
 import '../models/events.dart';
 import '../splashScreen/my_splash_screen.dart';
@@ -41,13 +42,14 @@ class _EventsDetailsScreenState extends State<CompetitionsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF131720),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -57,143 +59,195 @@ class _EventsDetailsScreenState extends State<CompetitionsDetailsScreen> {
         ),
         title: Text(widget.model!.eventName.toString()),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: (() {
-          deleteEvents();
-          // deleteObject();
-        }),
-        label: const Text("Delete this Competition"),
-        icon: Icon(
-          Icons.add_box_outlined,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.pinkAccent,
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: (() {
+      //     deleteEvents();
+      //     // deleteObject();
+      //   }),
+      //   label: const Text("Delete this Competition"),
+      //   icon: Icon(
+      //     Icons.add_box_outlined,
+      //     color: Colors.white,
+      //   ),
+      //   backgroundColor: Colors.pinkAccent,
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.network(widget.model!.photoUrl.toString()),
+            ClipPath(
+              clipper: CurveClipper(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+                child: Container(
+                    // decoration: const BoxDecoration(
+                    //     gradient: LinearGradient(
+                    //   colors: [
+                    //     Color(0xFF4c1ab1),
+                    //     Color(0xFF7c42ec),
+                    //   ],
+                    //   begin: FractionalOffset(0.0, 0.0),
+                    //   end: FractionalOffset(1.0, 0.0),
+                    //   stops: [0.0, 1.0],
+                    //   tileMode: TileMode.clamp,
+                    // )),
+                    color: Color(0xFF2a4371),
+                    height: MediaQuery.of(context).size.height * .5,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.network(widget.model!.photoUrl.toString())),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 30.0, right: 12),
               child: Text(
-                widget.model!.eventName.toString(),
+                "Event Name :  " + widget.model!.eventName.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.pinkAccent),
+                    color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0, right: 12),
               child: Text(
-                widget.model!.time.toString(),
+                "Event Timing    :  " + widget.model!.time.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0, right: 12),
               child: Text(
-                widget.model!.venue.toString(),
+                "Venue                :  " + widget.model!.venue.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 300.0),
+              padding: EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
+                top: 20,
+              ),
               child: Divider(
                 height: 1,
-                thickness: 2,
-                color: Colors.pinkAccent,
+                thickness: 1,
+                color: Colors.white30,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 20.0, right: 12),
               child: Text(
-                widget.model!.openFor.toString(),
+                "Open For       :  " + widget.model!.openFor.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    fontSize: 20,
+                    color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0, right: 12),
               child: Text(
-                widget.model!.organiser.toString(),
+                "Organised By    :  " + widget.model!.organiser.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 300.0),
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20),
               child: Divider(
                 height: 1,
-                thickness: 2,
-                color: Colors.pinkAccent,
+                thickness: 1,
+                color: Colors.white30,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 20.0),
+              child: Text(
+                "Description   : ",
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0, top: 5.0, right: 12),
               child: Text(
                 widget.model!.description.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0, right: 12),
               child: Text(
-                widget.model!.registration.toString(),
+                "Registration Process :  " +
+                    widget.model!.registration.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.pinkAccent),
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.white),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 300.0),
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 20),
               child: Divider(
                 height: 1,
-                thickness: 2,
-                color: Colors.pinkAccent,
+                thickness: 1,
+                color: Colors.white30,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 20.0),
               child: Text(
-                widget.model!.email.toString(),
+                "Contact Details     ",
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0),
               child: Text(
-                widget.model!.phoneNumber.toString(),
+                "Email Id  : " + widget.model!.email.toString(),
                 textAlign: TextAlign.justify,
                 style: const TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0, top: 10.0, bottom: 80),
+              child: Text(
+                "Phone Number : " + widget.model!.phoneNumber.toString(),
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 15,
+                  color: Colors.white,
                 ),
               ),
             ),

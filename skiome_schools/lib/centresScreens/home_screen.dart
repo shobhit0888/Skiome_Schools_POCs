@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skiome_schools/achievementsScreens/achievements_card_widget.dart';
 import 'package:skiome_schools/centresScreens/centres_ui_design_widget.dart';
 import 'package:skiome_schools/clubs_Screens/clubs_card.widget.dart';
@@ -31,6 +34,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
   int _dataLength = 1;
+  int index = 0;
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
       getSliderImageFromDb() async {
     var _fireStore = FirebaseFirestore.instance;
@@ -80,18 +85,28 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      drawer: MyDrawer(),
+      backgroundColor: Color(0xFF131720),
+      // drawer: MyDrawer(),
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (c) => MyDrawer()));
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            icon: Image.asset(
+              "images/trademark.png",
+            )),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 0.0),
+            end: FractionalOffset(1.5, 0.0),
             stops: [0.0, 1.0],
             tileMode: TileMode.clamp,
           )),
@@ -102,8 +117,102 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   key: _bottomNavigationKey,
+      //   index: index,
+      //   items: [
+      //     CurvedNavigationBarItem(
+      //         child: Icon(
+      //           Icons.home_outlined,
+      //           color: Colors.grey[600],
+      //         ),
+      //         label: 'Home',
+      //         labelStyle: TextStyle(color: Colors.white70)),
+      //     CurvedNavigationBarItem(
+      //       child: Icon(
+      //         Icons.search,
+      //         color: Colors.grey[600],
+      //       ),
+      //       label: 'Search',
+      //       labelStyle: TextStyle(color: Colors.white70),
+      //     ),
+      //     CurvedNavigationBarItem(
+      //       child: Icon(
+      //         Icons.chat_bubble_outline,
+      //         color: Colors.grey[600],
+      //       ),
+      //       label: 'Chat',
+      //       labelStyle: TextStyle(color: Colors.white70),
+      //     ),
+      //     CurvedNavigationBarItem(
+      //       child: Icon(
+      //         Icons.newspaper,
+      //         color: Colors.grey[600],
+      //       ),
+      //       label: 'Feed',
+      //       labelStyle: TextStyle(color: Colors.white70),
+      //     ),
+      //     CurvedNavigationBarItem(
+      //       child: Icon(
+      //         Icons.perm_identity,
+      //         color: Colors.grey[600],
+      //       ),
+      //       label: 'Personal',
+      //       labelStyle: TextStyle(color: Colors.white70),
+      //     ),
+      //   ],
+      //   color: Colors.purpleAccent,
+      //   height: 50,
+      //   buttonBackgroundColor: Colors.white,
+      //   backgroundColor: Colors.transparent,
+      //   animationCurve: Curves.easeInOut,
+      //   animationDuration: Duration(milliseconds: 400),
+      //   onTap: (index) => setState(() => this.index = index),
+      //   letIndexChange: (index) => true,
+      // ),
       body: CustomScrollView(
         slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 18, left: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Welcome ",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 23,
+                        ),
+                      ),
+                      Text(
+                        sharedPreferences!.getString("name").toString() + " !!",
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 2, left: 16, bottom: 8),
+                  child: Text(
+                    "A way to Skill Development and Advanced Learning",
+                    style: GoogleFonts.poppins(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
           if (_dataLength != 0)
             FutureBuilder(
                 future: getSliderImageFromDb(),
@@ -119,10 +228,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       : SliverToBoxAdapter(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 4),
+                            padding: const EdgeInsets.only(top: 12),
                             child: SizedBox(
-                              height: MediaQuery.of(context).size.height * .28,
-                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * .24,
+                              width: MediaQuery.of(context).size.width * .95,
                               child: CarouselSlider.builder(
                                 itemCount: snapShot.data!.length,
                                 itemBuilder:
@@ -136,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       margin:
                                           EdgeInsets.symmetric(horizontal: 1.0),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(40),
+                                        borderRadius: BorderRadius.circular(20),
                                         child: Image.network(
                                           getImage['photoUrl'],
                                           fit: BoxFit.fill,
@@ -145,16 +254,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 options: CarouselOptions(
                                     height: MediaQuery.of(context).size.height *
-                                        0.9,
+                                        0.95,
                                     aspectRatio: 16 / 9,
-                                    viewportFraction: 0.8,
+                                    viewportFraction: 0.85,
                                     initialPage: 0,
                                     enableInfiniteScroll: true,
                                     reverse: false,
                                     autoPlay: true,
-                                    autoPlayInterval: Duration(seconds: 2),
+                                    autoPlayInterval: Duration(seconds: 4),
                                     autoPlayAnimationDuration:
-                                        Duration(milliseconds: 800),
+                                        Duration(milliseconds: 1000),
                                     autoPlayCurve: Curves.fastOutSlowIn,
                                     enlargeCenterPage: true,
                                     // enlargeFactor: 0.3,
@@ -228,16 +337,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(left: 60, top: 20, bottom: 10),
-              child: Text(
-                "Our Centre",
-                style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.only(top: 20, left: 5),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(30))),
+                // color: Colors.blueGrey,
+                height: 45,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 18, top: 12),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.all(Radius.circular(40))),
+                    // color: Colors.blueGrey,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "Our Centre",
+                      style: GoogleFonts.lato(
+                          color: Colors.white70,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
+          // SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 8,
+          //   ),
+          // ),
           //query
           //model
           //design widget
@@ -250,13 +404,14 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: ((context, AsyncSnapshot dataSnapshot) {
               if (dataSnapshot.hasData) {
                 return SliverStaggeredGrid.countBuilder(
-                  crossAxisCount: 2,
+                  crossAxisCount: 1,
                   staggeredTileBuilder: (c) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     Centres model = Centres.fromJson(
                         dataSnapshot.data.docs[index].data()
                             as Map<String, dynamic>);
                     return CentresUiDesignWidget(
+                      token: 0,
                       model: model,
                     );
                   },
@@ -273,6 +428,58 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: Padding(
+              padding: const EdgeInsets.only(top: 15, left: 5),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(40))),
+                // color: Colors.blueGrey,
+                height: 45,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 18, top: 12),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF2a4371),
+                        Color(0xFF131720),
+                      ],
+                      begin: FractionalOffset(0.0, 0.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    )),
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.all(Radius.circular(40))),
+                    // color: Colors.blueGrey,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "Features",
+                      style: GoogleFonts.lato(
+                          color: Colors.white70,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,21 +487,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: [
-                      TeachersCardWidget(),
-                      EventsCardWidget(),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      CompetitionsCardWidget(),
-                      ClubsCardWidget(),
-                    ],
-                  ),
-                  Row(
-                    children: [AchievementsCardWidget()],
-                  ),
+                  EventsCardWidget(),
+                  CompetitionsCardWidget(),
+                  AchievementsCardWidget(),
+
+                  // Row(
+                  //   children: [
+                  //     TeachersCardWidget(),
+                  //     EventsCardWidget(),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     CompetitionsCardWidget(),
+                  //     ClubsCardWidget(),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   children: [AchievementsCardWidget()],
+                  // ),
                   SizedBox(
                     height: 50,
                   ),

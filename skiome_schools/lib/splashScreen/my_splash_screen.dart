@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skiome_schools/authScreens/auth_screen.dart';
+import 'package:skiome_schools/mainScreens/main_screen.dart';
 import 'package:skiome_schools/teachersScreens/home_screen_for_teachers.dart';
 
 import '../centresScreens/home_screen.dart';
@@ -19,7 +20,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
   @override
   splashScreenTimer() {
     Timer(const Duration(seconds: 2), () {
-      User? currentUser=FirebaseAuth.instance.currentUser;
+      User? currentUser = FirebaseAuth.instance.currentUser;
       //user is already logged in
       if (FirebaseAuth.instance.currentUser != null) {
         checkUserRecordExist(currentUser!);
@@ -41,7 +42,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
       if (record.exists) //record exist
       {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+            context, MaterialPageRoute(builder: (c) => const MainScreen()));
       } else {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (c) => const HomeScreenForTeachers()));

@@ -182,11 +182,11 @@ class AddressDesign extends StatelessWidget {
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                 colors: [
-                  Colors.pinkAccent,
-                  Colors.purpleAccent,
+                  Color(0xFF131720),
+                  Color(0xFF2a4371),
                 ],
                 begin: FractionalOffset(0.0, 0.0),
-                end: FractionalOffset(1.0, 0.0),
+                end: FractionalOffset(0.5, 0.0),
                 stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               )),

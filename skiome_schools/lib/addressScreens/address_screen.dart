@@ -37,8 +37,8 @@ class _AddressScreenState extends State<AddressScreen> {
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -54,6 +54,7 @@ class _AddressScreenState extends State<AddressScreen> {
         automaticallyImplyLeading: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Color(0xFF2a4371),
         onPressed: () {
           Navigator.push(
               context,

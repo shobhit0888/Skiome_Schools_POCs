@@ -32,8 +32,8 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -51,7 +51,7 @@ class _SearchScreenState extends State<SearchScreen> {
           },
           decoration: InputDecoration(
               hintText: "Search Centre here...",
-              hintStyle: TextStyle(color: Colors.white54),
+              hintStyle: TextStyle(color: Colors.white60),
               suffixIcon: IconButton(
                 onPressed: () {
                   initializeSearchingCentres(centreNameText);

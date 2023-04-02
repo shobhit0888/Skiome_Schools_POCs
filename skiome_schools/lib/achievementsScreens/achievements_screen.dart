@@ -9,17 +9,14 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:skiome_schools/achievementsScreens/achievements_ui_design_widget.dart';
 import 'package:skiome_schools/global/global.dart';
 
-
 import '../functions/functions.dart';
 import '../models/achievements.dart';
 import '../models/categories.dart';
 import '../widgets/text_delegate_header_widget.dart';
 
 class AchievementsScreen extends StatefulWidget {
-  
   AchievementsScreen({
     Key? key,
-   
   }) : super(key: key);
 
   @override
@@ -68,14 +65,15 @@ class _HomeScreenState extends State<AchievementsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF131720),
       // drawer: MyDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.pinkAccent,
-              Colors.purpleAccent,
+              Color(0xFF131720),
+              Color(0xFF2a4371),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -84,23 +82,22 @@ class _HomeScreenState extends State<AchievementsScreen> {
           )),
         ),
         title: Text(
-                  "Skiome Centre",
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    letterSpacing: 1,
-                  ),
-                ),
+          "Achievements",
+          style: TextStyle(
+            color: Colors.white70,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            letterSpacing: 1,
+          ),
+        ),
         centerTitle: true,
-       
       ),
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(
-              delegate: TextDelegateHeaderWidget(
-            title: "Achievments",
-          )),
+          // SliverPersistentHeader(
+          //     delegate: TextDelegateHeaderWidget(
+          //   title: "Achievments",
+          // )),
 
           //write   query
           //model
